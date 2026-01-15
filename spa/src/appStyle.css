@@ -1,0 +1,38 @@
+:root {
+  --primary-color: #EC7425;
+  --secundary-color: #23428A;
+  --text-main-color: #2e2e2e;
+  --bg-main-color: #f5f5f5;
+}
+
+@font-face {
+  font-family: Monserrat;
+  src: url('../public/fonts/monserrat_variable.ttf') format('truetype'); 
+}
+
+html, body {
+  font-family: Monserrat, sans-serif;
+}
+
+.bg-main{
+    background: var(--bg-main-color);    
+    height: 100vh;
+}
+
+.bg-login-img{
+    height: 100vh;
+    background-image: url('../public/media/background_2.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.bg-white{
+    background: #fff;
+}
+
+.loading-global-container{
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 40vh;
+}

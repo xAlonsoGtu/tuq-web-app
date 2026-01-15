@@ -1,0 +1,12 @@
+
+.App-logo-login {
+  height: 100px;
+  pointer-events: none;
+    margin-bottom: 50px;
+}
+
+.box-login{
+    text-align: center;
+    width: 450px;
+    margin-bottom: 100px;
+}
