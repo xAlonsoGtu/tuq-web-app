@@ -3,6 +3,11 @@ Web app - Control de acceso GTU
 
 
 # Descarga de proyecto GitHub y ejecución
+
+### -Si ya tienes el proyecto descargado, borra la carpeta donde esta el proyecto, para no confundirnos con las versiones.
+<br/>
+<br/>
+
 ### -Instala Git en tu máquina: 
 https://git-scm.com/
 <br/>
