@@ -46,13 +46,18 @@ npm install
 ```
 <br/>
 
-### -Ejecuta nodeJs
+### -Para verificar que tu servidor back esta correcto, ejecuta el siguiente comando. Se debe poner en en la terminal el texto "listening on port 3001"
 ```
 npm start
 ```
 <br/>
 
-### -Accede a la carpeta de react
+### -Para cerrar el proceso, usa el siguiente comando.
+ctrl + c / command + c
+<br/>
+<br/>
+
+### -Ahora toca descargar y correr el front, accede a la carpeta de react
 ```
 cd spa
 ```
@@ -64,9 +69,37 @@ npm install
 ```
 <br/>
 
-### -Ejecuta react
+### -Para verificar que tu servidor front(react) esta correcto, ejecuta el siguiente comando. Se debe abrir la aplicación en el navegador.
 ```
 npm start
 ```
 <br/>
+
+### -Para cerrar el proceso, usa el siguiente comando.
+ctrl + c / command + c
+<br/>
+
+# Finalmente
+### -Para que la aplicación funcione de forma correcta es necesario ejecutar front y back en una terminal cada uno. Abre 2 terminales.
+Terminal -> Nueva terminal
+<br/>
+
+### -En la primer terminal(back), asegurate de estar en la carpeta "tuq-web-app" y ejecuta el siguiente comando.
+```
+npm start
+```
+<br/>
+
+### -En la segunda terminal(front), asegurate de estar en la carpeta "tuq-web-app/spa" y ejecuta el siguiente comando.
+```
+npm start
+```
+<br/>
+
+
+### -Listo!. Puedes ingresar con el siguiente usuario.
+```
+usaurio: admin1@tuq.com
+password: qweqwe
+```
 <br/>
