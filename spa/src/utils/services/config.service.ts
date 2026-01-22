@@ -1,3 +1,4 @@
+//configuraciones del ambiente
 export class ConfigService {
   static _apiURI: string;
 
@@ -10,6 +11,7 @@ export class ConfigService {
         return true;
     }
 
+    //Url del API
     static get ApiURI() {
         return "http://localhost:3001";
     }    

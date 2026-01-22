@@ -1,11 +1,12 @@
-
+//Importamos librerias
 const express = require('express');
 const router = express.Router();
-const auth = require('../middleware/auth');
-const controller = require("../controllers/auth.controller");
+//Importamos controllador
+const authController = require("../controllers/auth.controller");
 
-//router.post('/signup', controller.signupUser);
-router.get('/login', controller.login);
-//router.get('/identity', auth.verifyToken, controller.identity);
+//Indicamos rutas
+//Si la ruta es POST con la URL /login, entonces ejecutamos el método 'login' del controlador
+router.post('/login', authController.login);
 
+//Exportamos las nuevas rutas creadas para que puedan ser usadas por index.routes
 module.exports = router;

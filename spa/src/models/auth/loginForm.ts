@@ -1,10 +1,18 @@
+//Clase para envio de datos -> login
 export class LoginForm {
-    email!: string;
-    password!: string;
+    constructor(user:string, pass: string){
+        this.user = user;
+        this.pass = pass;
+    }
+    user: string;
+    pass: string;
 }
 
-export class User {
+//Clase para obtener datos de la sesión del usuario
+export class UsuarioAuth {
     id!: number;
-    email!: string;
-    name!: string;
+    user!: string;
+    tipo!: number;
+    imagen!: string;
+    qr!: string;
 }

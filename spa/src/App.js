@@ -1,12 +1,15 @@
 import { lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import ProtectedRoute from './components/shared/protectedRoute';
-import AdminDashboardPage from './components/admin/panel/adminDashboardPage';
 import NoMatch from './components/shared/noMatch';
 import SimpleLayout from './layouts/simpleLayout';
+import AdminLayout from './layouts/adminLayout';
+import AdminPanelPage from './components/admin/panel/adminPanelPage';
 
 //Usamos lazy para cargar paginas cuando se necesiten
 const LoginPage = lazy(() => import('./components/auth/login/loginPage'));
+const MaestroPage = lazy(() => import('./components/admin/maestro/maestroPage'));
+const MaestroAgregarPage = lazy(() => import('./components/admin/maestro/maestroAgregarPage'));
 
 function App() {
   return (
@@ -17,20 +20,19 @@ function App() {
           <Route path="login" element={<LoginPage/>}/>
         </Route>
 
-        {/* Rutas protected */}
-        <Route element={<ProtectedRoute />}>
-          <Route element={<SimpleLayout />}>
-            <Route path="/dashboard" element={<AdminDashboardPage />} />
+        {/* Rutas protected, valida si tiene acceso por el tipo de usuario */}
+        <Route element={<ProtectedRoute tipo="1"/>}>
+          {/* Usa layout de Admin para mostrar las páginas dentro de el */}
+          <Route path="/admin" element={<AdminLayout />}>
+            {/* Página principal por defecto */}
+            <Route path="" element={<NoMatch />} />
+            <Route path="panel" element={<AdminPanelPage />} />
+            <Route path="maestro" element={<MaestroPage />} />
+            <Route path="maestro/agregar" element={<MaestroAgregarPage />} />
           </Route>
         </Route>
 
-        {/* <Route path="/auth" element={<Home />} />
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/products" element={<Products />}>
-        <Route path="car" element={<Car/>}/>
-        </Route>
-        <Route path="/products/:slug" element={<ProductDetails />} /> */}       
+        {/*<Route path="/products/:slug" element={<ProductDetails />} /> */}       
 
         {/* Ruta por defecto */}
         <Route path="*" element={<NoMatch />} />

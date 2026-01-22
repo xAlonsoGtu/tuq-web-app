@@ -1,12 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { BrowserRouter } from 'react-router-dom';
 import { Suspense } from 'react';
-import LoadingGlobal from './components/shared/loadingGlobal';
+import './index.css';
 
 // Tema para material, modificar colores
 const theme = createTheme({

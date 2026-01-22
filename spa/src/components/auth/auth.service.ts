@@ -1,27 +1,11 @@
-import { LoginForm, User } from "../../models/auth/loginForm";
+import { LoginForm, UsuarioAuth } from "../../models/auth/loginForm";
 import { ConstantsRoutes } from "../../utils/constants/constantsRoutes";
-import { getType } from "../../utils/services/api-client.service";
+import { post } from "../../utils/services/api-client.service";
 
+//Servicios o funciones que usar el modulo auth
 export class AuthService {
-  apiClient: any;
-  constructor(
-  ) {
-    //this.apiClient =  ApiClientService();
-  }
-
-
+  //Login 
   public login(form: LoginForm) {
-    //return this.apiClient.get<string, LoginForm>(ConstantsRoutes.LOGIN, form);
-    //return this.apiClient.get(ConstantsRoutes.LOGIN);
-    return getType<User>(ConstantsRoutes.LOGIN);
-    //return this.apiClient.get(ConstantsRoutes.LOGIN);
+    return post<LoginForm, UsuarioAuth>(ConstantsRoutes.LOGIN, form, false);
   }
-  
-  // public login(form: LoginForm): Observable<ApiResponse<TokenResponse>> {
-  //   return this.apiClient.apiPostSimple<TokenResponse, LoginForm>(ConstantsRoutes.LOGIN, form);
-  // }
-
-  // public reset(form: ResetForm): Observable<ApiResponse<TokenResponse>> {
-  //   return this.apiClient.apiPostSimple<TokenResponse, ResetForm>(ConstantsRoutes.RESET, form);
-  // }
 }

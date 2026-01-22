@@ -1,18 +1,23 @@
+//Importamos librerias
+const express = require('express'); //rest api
+const cors = require('cors'); //envio de peticiones dentro del servidor
+const indexRouter = require('./routes/index.routes'); //cargamos archivo de rutas principal
+require('dotenv').config(); //inciamos configuracion de archivo .env para guardar claves secretas
 
-require('dotenv').config();
-const express = require('express');
-const cors = require('cors');
-const indexRouter = require('./routes/index.routes');
-
+//Obtenemos el ambiente(pruebas o producción)
 const nodeEnv = process.env.NODE_ENV || 'development';
 console.log(`Running in ${nodeEnv} mode`);
 
+//Indicamos el puerto de escucha del servidor
 const PORT = process.env.PORT || 3001;
+
+//Iniciamos objeto express para crear el servidor api rest
 const app = express();
 
-app.use(cors())
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+//Configuramos servidor express
+app.use(cors()) //Indicamos uso de cors (Cross-Origin Resource Sharing) - origen cruzado de datos
+app.use(express.json()); //Indicamos uso de json para convertir peticiones en JSON
+app.use(express.urlencoded({ extended: true })); //Indicamos uso de urlencoded para convertir form-data en JSON
 
 
 //Para PRODUCCIÓN, descomentar cuando se vea la ejecución en PRO
@@ -30,6 +35,7 @@ app.use(express.urlencoded({ extended: true }));
 //app.use('/public', express.static('public'));
 //app.use('/api/uploads', express.static('public/uploads'));
 
+//Indicamos uso de rutas
 app.use('/api', indexRouter);
 
 //Para PRODUCCIÓN, descomentar cuando se vea la ejecución en PRO
@@ -37,7 +43,7 @@ app.use('/api', indexRouter);
 //   res.sendFile(__dirname + "/spa/dist/spa/index.html")
 // });
 
-
+//Iniciamos servidor en PORT
 app.listen(PORT, () => {
     console.log(`listening on port ${PORT}`);
 });

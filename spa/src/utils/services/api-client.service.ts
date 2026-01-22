@@ -1,76 +1,199 @@
-import { User } from "../../models/auth/loginForm";
+import { ApiResponse } from "../../models/shared/apiResponse";
 import { ConfigService } from "./config.service";
 
-export async function getType<T>(url:string): Promise<T> {
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
+//Funccion POST API generica
+//T = Objeto del formulario
+//R = Objeto payload
+//Devuelve una promesa con el objeto ApiResponse
+export async function post<T, R>(url:string, form: T, auth: boolean = true): Promise<ApiResponse<R>>  {
+    //Creamos encabezados, indicamos que tipo de recuerso envia (json)
+    const customHeaders = new Headers();
+    customHeaders.append("Content-Type", "application/json");
 
-    var response = await fetch(ConfigService.ApiURI + url, {
-        method: "GET",
-        //body: JSON.stringify({ username: "example" }),
-        headers: myHeaders,
-    });
-
-    if (!response.ok) {
-        throw new Error(`Response status: ${response.status}`);
+    //Si API necesita auth
+    if(auth){
+        //Obtenemos token
+        var BearerToken = localStorage.getItem('token');
+        if(BearerToken == null) BearerToken = "";
+        //Agregamos token al encabezado  
+        customHeaders.append('Authorization', BearerToken);
     }
 
-    const result = await response.json() as T;
-        return result;
-    }
-
-export async function get(url:string){
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-
-    const url_api = ConfigService.ApiURI + url;
+    //Realizamos la solicitud HTTP asincróna,  
     var response = await fetch(ConfigService.ApiURI + url, {
-        method: "GET",
-        //body: JSON.stringify({ username: "example" }),
-        headers: myHeaders,
+        method: "POST",
+        body: JSON.stringify(form),
+        headers: customHeaders,
     });
     
-    //var ss = getTypeAuth<User>("ad");
-    if (!response.ok) {
-        throw new Error(`Response status: ${response.status}`);
-    }
+    //Si hay respuesta la trasformamos en json
+    var result:any;
+    if(response)
+        result = await response.json();
 
-    const result = await response.json();
-    console.log(result);
+    //Devolvemos resultado
     return result;
 }
 
-// const response = await fetch("https://example.org/post", {
-//   method: "POST",
-//   body: JSON.stringify({ username: "example" }),
-//   // …
-// });
+//Funccion PUT API generica
+export async function put<T, R>(url:string, form: T, auth: boolean = true): Promise<ApiResponse<R>>  {
+    //Creamos encabezados, indicamos que tipo de recuerso envia (json)
+    const customHeaders = new Headers();
+    customHeaders.append("Content-Type", "application/json");
 
-// const response = await fetch("https://example.org/post", {
-//   method: "POST",
-//   headers: {
-//     "Content-Type": "application/x-www-form-urlencoded",
-//   },
-//   // Automatically converted to "username=example&password=password"
-//   body: new URLSearchParams({ username: "example", password: "password" }),
-//   // …
-// });
+    //Si API necesita auth
+    if(auth){
+        //Obtenemos token
+        var BearerToken = localStorage.getItem('token');
+        if(BearerToken == null) BearerToken = "";
+        //Agregamos token al encabezado  
+        customHeaders.append('Authorization', BearerToken);
+    }
 
-// const params = new URLSearchParams();
-// params.append("username", "example");
+    //Realizamos la solicitud HTTP asincróna,  
+    var response = await fetch(ConfigService.ApiURI + url, {
+        method: "PUT",
+        body: JSON.stringify(form),
+        headers: customHeaders,
+    });
+    
+    //Si hay respuesta la trasformamos en json
+    var result:any;
+    if(response)
+        result = await response.json();
 
-// // GET request sent to https://example.org/login?username=example
-// const response = await fetch(`https://example.org/login?${params}`);
+    //Devolvemos resultado
+    return result;
+}
+
+//Funccion DELETE API generica
+export async function del<T, R>(url:string, form: T, auth: boolean = true): Promise<ApiResponse<R>>  {
+    //Creamos encabezados, indicamos que tipo de recuerso envia (json)
+    const customHeaders = new Headers();
+    customHeaders.append("Content-Type", "application/json");
+
+    //Si API necesita auth
+    if(auth){
+        //Obtenemos token
+        var BearerToken = localStorage.getItem('token');
+        if(BearerToken == null) BearerToken = "";
+        //Agregamos token al encabezado  
+        customHeaders.append('Authorization', BearerToken);
+    }
+
+    //Realizamos la solicitud HTTP asincróna,  
+    var response = await fetch(ConfigService.ApiURI + url, {
+        method: "DELETE",
+        body: JSON.stringify(form),
+        headers: customHeaders,
+    });
+    
+    //Si hay respuesta la trasformamos en json
+    var result:any;
+    if(response)
+        result = await response.json();
+
+    //Devolvemos resultado
+    return result;
+}
+
+export async function get<R>(url:string, auth: boolean = true): Promise<ApiResponse<R>>  {
+    //Creamos encabezados, indicamos que tipo de recuerso envia (json)
+    const customHeaders = new Headers();
+    customHeaders.append("Content-Type", "application/json");
+
+    //Si API necesita auth
+    if(auth){
+        //Obtenemos token
+        var BearerToken = localStorage.getItem('token');
+        if(BearerToken == null) BearerToken = "";
+        //Agregamos token al encabezado  
+        customHeaders.append('Authorization', BearerToken);
+    }
+
+    //Realizamos la solicitud HTTP asincróna,  
+    var response = await fetch(ConfigService.ApiURI + url, {
+        method: "GET",
+        headers: customHeaders,
+    });
+    
+    //Si hay respuesta la trasformamos en json
+    var result:any;
+    if(response)
+        result = await response.json();
+
+    //Devolvemos resultado
+    return result;
+}
+
+export async function getWithForm<T, R>(url:string, form: T, auth: boolean = true): Promise<ApiResponse<R>>  {
+    //Creamos encabezados, indicamos que tipo de recuerso envia (json)
+    const customHeaders = new Headers();
+    customHeaders.append("Content-Type", "application/json");
+
+    //Si API necesita auth
+    if(auth){
+        //Obtenemos token
+        var BearerToken = localStorage.getItem('token');
+        if(BearerToken == null) BearerToken = "";
+        //Agregamos token al encabezado  
+        customHeaders.append('Authorization', BearerToken);
+    }
+
+    //Realizamos la solicitud HTTP asincróna,  
+    var response = await fetch(ConfigService.ApiURI + url, {
+        method: "GET",
+        body: JSON.stringify(form),
+        headers: customHeaders,
+    });
+    
+    //Si hay respuesta la trasformamos en json
+    var result:any;
+    if(response)
+        result = await response.json();
+
+    //Devolvemos resultado
+    return result;
+}
+
+export async function getWithParams<R>(url:string, params: URLSearchParams, auth: boolean = true): Promise<ApiResponse<R>>  {
+    //Creamos encabezados, indicamos que tipo de recuerso envia (json)
+    const customHeaders = new Headers();
+    customHeaders.append("Content-Type", "application/json");
+
+    //Si API necesita auth
+    if(auth){
+        //Obtenemos token
+        var BearerToken = localStorage.getItem('token');
+        if(BearerToken == null) BearerToken = "";
+        //Agregamos token al encabezado  
+        customHeaders.append('Authorization', BearerToken);
+    }
+
+    //const params = new URLSearchParams();
+    // params.append("username", "example");
+
+    //Creamos nueva url y asignamos parametros
+    const url_new = new URL(ConfigService.ApiURI + url);
+    url_new.search = params.toString();
+
+    //Realizamos la solicitud HTTP asincróna,  
+    var response = await fetch(url_new , {
+        method: "GET",
+        headers: customHeaders,
+    // Automatically converted to "username=example&password=password"
+    //body: new URLSearchParams({ username: "example", password: "password" }),
+    });
+    
+    //Si hay respuesta la trasformamos en json
+    var result:any;
+    if(response)
+        result = await response.json();
+
+    //Devolvemos resultado
+    return result;
+}
   
-// async function post(request) {
-//   try {
-//     const response = await fetch(request);
-//     const result = await response.json();
-//     console.log("Success:", result);
-//   } catch (error) {
-//     console.error("Error:", error);
-//   }
-// }
 
 // async function setImage() {
 //   try {

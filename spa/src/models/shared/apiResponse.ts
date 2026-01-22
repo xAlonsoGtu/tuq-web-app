@@ -1,3 +1,5 @@
+//Interfaz, permite restringir la estructura de los datos obtenidos del servidor
+//El uso frecuente no afectará el rendimiento del programa, caso contrario las clases
 export interface ApiResponse<T> {
     success: boolean;
     payload: T;

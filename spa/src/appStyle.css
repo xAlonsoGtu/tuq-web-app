@@ -1,24 +1,31 @@
+/* Constantes de colores y propiedades */
 :root {
   --primary-color: #EC7425;
   --secundary-color: #23428A;
   --text-main-color: #2e2e2e;
+  --text-gray-color: #8e8e8e;
   --bg-main-color: #f5f5f5;
+  --bg-main-color: #f9fdfd
 }
 
+/* Importamos la fuente de la aplicación */
 @font-face {
   font-family: Monserrat;
   src: url('../public/fonts/monserrat_variable.ttf') format('truetype'); 
 }
 
+/* Incluimos la fuente en la aplicacion */
 html, body {
   font-family: Monserrat, sans-serif;
 }
 
+/* Color del fondo principal, especificamos una altura total de la pantalla */
 .bg-main{
     background: var(--bg-main-color);    
     height: 100vh;
 }
 
+/* Imagen de login */
 .bg-login-img{
     height: 100vh;
     background-image: url('../public/media/background_2.jpeg');
@@ -27,12 +34,108 @@ html, body {
     background-repeat: no-repeat;
 }
 
+/* Fondo blanco */
 .bg-white{
-    background: #fff;
+    background: #ffffff !important;
 }
 
+/* Loading global */
 .loading-global-container{
     text-align: center;
     margin: 0 auto;
     margin-top: 40vh;
+}
+
+/* Estilo boton */
+.btn_big{
+  height: 56px !important;
+}
+
+/* Estilo del sidebar */
+.item-menu{
+    margin: 10px 10px 0px 10px !important;
+    background: #f5f5f5;
+    padding: 10px;
+    border-radius: 5px;
+    vertical-align: middle;
+    color: var(--text-main-color) !important;
+}
+.item-menu:first-of-type{
+    margin: 15px 10px 0px 10px !important;
+}
+
+.item-menu p{
+    display: inline-block;
+    margin: 0px;
+    vertical-align: super;
+    font-weight: 500;  
+}
+
+.item-menu svg{
+  margin-right: 10px;
+}
+.item-menu:hover{
+    background: #ffeadc;
+}
+.item-menu.active{
+  background: var(--primary-color);
+  color: #ffffff !important;
+}
+
+.item-menu.inactive{
+
+}
+
+/* Estilo del app bar */
+.app-bar{
+  background: #ffffff !important;
+  color: var(--text-main-color) !important;
+}
+
+.app-bar-logo{
+  height: 50px;
+}
+
+.app-bar-menu-icon{
+  padding: 15px !important;
+}
+
+.app-bar-datos{
+  text-align: right;
+  padding: 10px;
+}
+
+.app-bar-datos p{
+    margin: 0px;
+    color: var(--text-main-color);
+}
+
+
+.app-bar-datos span{
+    color: var(--text-gray-color);
+    font-size: 14px;
+}
+
+.app-bar-avatar{
+
+}
+
+/*Estilos de la página*/
+.page-tittle{
+  margin: 0px;
+  color: var(--text-main-color);
+}
+
+.box-form-head{
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.box-form-head-title{
+  color: var(--text-main-color);
+}
+
+.box-form-body-subtitle{
+  color: var(--text-gray-color);
+  margin-bottom: 10px !important;
+  font-weight: 500;
 }
