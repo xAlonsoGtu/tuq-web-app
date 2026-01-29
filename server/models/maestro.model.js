@@ -1,4 +1,4 @@
-export class Maestro{
+class Maestro{
     maestro_id;
     usuario_id;
     nombre;
@@ -9,7 +9,7 @@ export class Maestro{
     carrera;
 }
 
-export class UsuarioMaestroAdd {
+class UsuarioMaestroAdd {
   constructor(nUsuario) {
     this.username = nUsuario.username;
     this.password = nUsuario.password;
@@ -22,7 +22,7 @@ export class UsuarioMaestroAdd {
   }
 }
 
-export class MaestroAdd {
+class MaestroAdd {
   constructor(nUsuario, usuario_id) {
     this.usuario_id = usuario_id;
     this.nombre = nUsuario.nombre;
@@ -34,4 +34,5 @@ export class MaestroAdd {
   }
 }
 
-export default {MaestroAdd, UsuarioMaestroAdd};
+
+module.exports = { Maestro, UsuarioMaestroAdd, MaestroAdd };

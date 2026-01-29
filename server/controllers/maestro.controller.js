@@ -2,9 +2,8 @@
 const md5 = require('md5');
 const UsuarioRepository = require('../modules/usuario.repository.js');
 const MaestroRepository = require('../modules/maestro.repository.js');
-const { MaestroAdd, UsuarioMaestroAdd } = require('../models/maestro.model.js');
+const { MaestroAdd } = require('../models/maestro.model.js');
 const { UsuarioAdd } = require('../models/usuario.model.js');
-  
 
 //Cramos objeto controllador
 const maestroCtrl = {};
@@ -42,6 +41,30 @@ maestroCtrl.agregar = async (req, res) => {
 
         } else return res.status(400).send({ success: false, error: "Usuario no creado" });
         
+    }
+    catch(e){
+        //Si ocurre un error lo mostramos en terminal y regresamos error 400
+        console.log(e);
+        return res.status(400).send({ success: false, error: e.message});
+    }
+}
+
+//Función para buscar masestros
+maestroCtrl.buscar = async(req, res) => {
+    try{
+        
+        //Obtenemos valores del url para usarlos en la busqueda
+        var palabra = req.query.palabra;
+        var ordenBy = req.query.ordenBy;
+        var orden = req.query.orden; 
+        var pagina = Number(req.query.pagina);
+
+        //Buscamos datos
+        var rList = await MaestroRepository.searchMaestro(palabra, ordenBy, orden, 2, pagina);
+        if(rList.success){
+            //Regresamos resulado 
+            return res.status(200).send(rList);
+        }else return res.status(400).send({ success: false, error: "Maestro(s) no encontrado" });
     }
     catch(e){
         //Si ocurre un error lo mostramos en terminal y regresamos error 400

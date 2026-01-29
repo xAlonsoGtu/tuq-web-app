@@ -170,9 +170,6 @@ export async function getWithParams<R>(url:string, params: URLSearchParams, auth
         customHeaders.append('Authorization', BearerToken);
     }
 
-    //const params = new URLSearchParams();
-    // params.append("username", "example");
-
     //Creamos nueva url y asignamos parametros
     const url_new = new URL(ConfigService.ApiURI + url);
     url_new.search = params.toString();

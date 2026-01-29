@@ -16,6 +16,24 @@ pool.on('error', (err, client) => {
 //Exportamos conexión para ser usada por los repositorios
 module.exports = pool;
 
+
+//
+// INNER JOIN: Returns records that have matching values in both tables
+// LEFT JOIN: Returns all records from the left table, and the matched records from the right table
+// RIGHT JOIN: Returns all records from the right table, and the matched records from the left table
+// FULL JOIN: Returns all records when there is a match in either left or right table
+// CROSS JOIN: Returns the Cartesian product of two or more tables (combines every row from the first table with every row from the second table)
+
+//Otra opción para manejar conexiones
+// query = async (text, params) => {
+//   const start = Date.now()
+//   const res = await pool.query(text, params)
+//   const duration = Date.now() - start
+//   console.log('executed query', { text, duration, rows: res.rowCount })
+//   return res
+// }
+// module.exports = query;
+
 // pool - permite generar queries de forma frecuente sin tener que estar conectándonos una y otra vez a la BD. Ejecuciones en parelelo.
 // Limitaciones conexión cliente (SIN POOL):
 // Conectar un nuevo cliente al servidor PostgreSQL requiere un protocolo de enlace que puede tardar entre 20 y 30 milisegundos. 
