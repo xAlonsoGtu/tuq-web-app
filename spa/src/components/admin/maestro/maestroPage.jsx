@@ -59,7 +59,7 @@ function MaestroPage(){
           </Box>
         </Grid>
 
-        {/* La sigueinte linea de grid es tamaño 12/12 */}
+        {/* La siguiente linea de grid es tamaño 12/12 */}
         <Grid size={{ xs: 12}}>
           {/* Agregamos un stack que sirve para colocar los elementos de forma horizontal o vertical distribuyendo su tamaño */}
           <Stack spacing={1}>
