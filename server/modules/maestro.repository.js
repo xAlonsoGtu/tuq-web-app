@@ -30,13 +30,116 @@ MaestroRepository.addMaestro = async(maestro) => {
     }
 }
 
+MaestroRepository.updateMaestro = async(maestro) => {
+    try{
+        //Creamos query de update
+        const text = `
+            UPDATE maestros
+            SET nombre=$2, apellido_paterno=$3, apellido_materno=$4, escolaridad=$5, carrera=$6, coordinador=$7, updated_at=$8
+            WHERE maestro_id = $1
+        `;
+        //Indicamos parámetros del query
+        const values = [maestro.maestro_id, maestro.nombre, maestro.apellido_paterno, maestro.apellido_materno, 
+            maestro.escolaridad, maestro.coordinador, maestro.carrera, new Date()];
+
+        //Ejecutamos query y esperamos respuesta
+        var res = await pool.query(text, values);
+
+        //Evaluamos respuesta, si no hay información lanzamos error 
+        if(res == null || res.rowCount === 0) throw new Error('Registro no creado.');
+        
+        return { success: true, payload: res.rows[0].maestro_id };
+    }catch(e){
+        //Lanzamos error
+        throw new Error(e.message);
+    }
+}
+
+MaestroRepository.updateStatusMaestro = async(maestro) => {
+    try{
+        //Creamos query de update
+        const text = `
+            UPDATE maestros
+            SET status = $2
+            WHERE maestro_id = $1
+        `;
+        //Indicamos parámetros del query
+        const values = [maestro.maestro_id, maestro.status];
+
+        console.log(maestro);
+        //Ejecutamos query y esperamos respuesta
+        var res = await pool.query(text, values);
+        
+        //Evaluamos respuesta, si no hay información lanzamos error 
+        if(res == null || res.rowCount === 0) throw new Error('Registro no creado.');
+        
+        //Retornamos valor
+        return { success: true, payload: maestro.maestro_id };
+    }catch(e){
+        //Lanzamos error
+        throw new Error(e.message);
+    }
+}
+
+MaestroRepository.deleteMaestro = async(maestro) => {
+    try{
+        //Creamos query de update
+        const text = `
+            UPDATE maestros
+            SET status=4, deleted_at = $2
+            WHERE maestro_id = $1
+        `;
+        //Indicamos parámetros del query
+        const values = [maestro_id, new Date()];
+
+        //Ejecutamos query y esperamos respuesta
+        var res = await pool.query(text, values);
+        
+        //Evaluamos respuesta, si no hay información lanzamos error 
+        if(res == null || res.rowCount === 0) throw new Error('Registro no creado.');
+        
+        return { success: true, payload: res.rows[0].maestro_id };
+    }catch(e){
+        //Lanzamos error
+        throw new Error(e.message);
+    }
+}
+
+MaestroRepository.getMaestro = async(maestro_id) => {
+    try{
+        //Creamos query de busqueda
+        const text = `
+            SELECT maestros.maestro_id, maestros.usuario_id, maestros.nombre, maestros.apellido_paterno, maestros.apellido_materno, 
+                    maestros.carrera, maestros.coordinador, maestros.status, maestros.created_at, 
+                    usuarios.username, usuarios.imagen_perfil, usuarios.qr_code 
+            FROM maestros
+            LEFT JOIN usuarios ON maestros.usuario_id = usuarios.usuario_id        
+            WHERE username = $1
+            LIMIT 1
+        `;
+        const values = [maestro_id];
+
+        //Ejecutamos query y esperamos respuesta
+        var res = await pool.query(text, values);
+
+        //Evaluamos respuesta, si no hay información lanzamos error 
+        if(res == null || res.rowCount === 0) throw new Error('No se encontró información.');
+        
+        //Devolvemos resultados
+        return { success: true, payload: res.rows };
+    }catch(e){
+        //Lanzamos error
+        throw new Error(e.message);
+    }
+}
+
 MaestroRepository.searchMaestro = async(palabra, ordenBy, orden, limite, pagina) => {
     try{
         //Creamos query de insert
         const palabra_like = "%" + palabra + "%"; //Buscamos por palabras que contengan...
-        const offset = limite * pagina;
-        const orderBy = "ORDER BY " + ordenBy + (orden == "desc" ? " DESC" : " ASC");
-        const where = palabra != null && palabra != "" ? "WHERE username LIKE $3 OR nombre LIKE $3 OR apellido_materno LIKE $3" : "";
+        const offset = limite * pagina; //Calculamos offset, apartir de cuál registro buscar
+        const orderBy = "ORDER BY " + ordenBy + (orden == "desc" ? " DESC" : " ASC"); //Ordenamiento
+        const where = palabra != null && palabra != "" ? "WHERE username LIKE $3 OR nombre LIKE $3 OR apellido_materno LIKE $3" : ""; //Si hay palabra que buscar
         const text = `
             SELECT maestros.maestro_id, maestros.usuario_id, maestros.nombre, maestros.apellido_paterno, maestros.apellido_materno, 
                     maestros.carrera, maestros.coordinador, maestros.status, maestros.created_at, 

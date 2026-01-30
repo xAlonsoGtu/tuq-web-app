@@ -9,11 +9,51 @@ import QrCodeOutlinedIcon from '@mui/icons-material/QrCodeOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import ToggleOnOutlinedIcon from '@mui/icons-material/ToggleOnOutlined';
+import { MaestroFormEditarStatus } from '../../../models/maestro/maestroFormEditar';
+import { MaestroService } from './maestro.service';
+import toast from 'react-hot-toast';
+import { ConstantsCatalogos } from '../../../utils/constants/constantsCatalogo';
 
-export function MaestroMenu({maestro}){
-    function handleEditar(){
-        console.log(maestro)
+export function MaestroTableMenu({maestro}){
+  //Sevicio api
+  const service = new MaestroService();
+  const [loadingMenu, setLoadingMenu] = useState(false);
+
+
+  function handleEditar(){
+      console.log(maestro);
+      setAnchorEl(null);
+  };
+
+  async function handleEditarStatus(){              
+    console.log(maestro);
+    setLoadingMenu(true);
+    try {
+      //Creamos objeto con los datos del form
+      var form = new MaestroFormEditarStatus(maestro.maestro_id, maestro.status == 1 ? 2 : 1);
+
+      //Ejecutamos agregar enviandole el form y esperamos respuesta
+      var res = await service.editarStatus(form);
+
+      //Si la respuesta es positiva
+      if(res.success){
+        //Mostramos mensaje success
+        toast.success("Maestro editado con éxito!");
+
+            }else{
+                //Si nos arrojo error lo mostramos
+                if(res.error) toast.error(res.error);
+                //De lo contrario arrojamos un error por defecto en el toast
+                else toast.error(ConstantsCatalogos.ERROR_DEFAULT);
+            }
+
+        } catch (err) {
+            toast.error(err)
+        } finally {
+          setLoadingMenu(false);
         setAnchorEl(null);
+        }
+
     };
 
     function handleQrcode(){
@@ -56,7 +96,7 @@ export function MaestroMenu({maestro}){
           </ListItemIcon>
           Editar
         </MenuItem>
-        <MenuItem onClick={()=>handleEditar()}>
+        <MenuItem onClick={()=>handleEditarStatus()} disabled={loadingMenu}>
           <ListItemIcon>
             <ToggleOnOutlinedIcon fontSize="small" />
           </ListItemIcon>

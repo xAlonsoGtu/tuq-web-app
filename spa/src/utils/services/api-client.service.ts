@@ -67,7 +67,7 @@ export async function put<T, R>(url:string, form: T, auth: boolean = true): Prom
 }
 
 //Funccion DELETE API generica
-export async function del<T, R>(url:string, form: T, auth: boolean = true): Promise<ApiResponse<R>>  {
+export async function del<R>(url:string, auth: boolean = true): Promise<ApiResponse<R>>  {
     //Creamos encabezados, indicamos que tipo de recuerso envia (json)
     const customHeaders = new Headers();
     customHeaders.append("Content-Type", "application/json");
@@ -84,7 +84,6 @@ export async function del<T, R>(url:string, form: T, auth: boolean = true): Prom
     //Realizamos la solicitud HTTP asincróna,  
     var response = await fetch(ConfigService.ApiURI + url, {
         method: "DELETE",
-        body: JSON.stringify(form),
         headers: customHeaders,
     });
     

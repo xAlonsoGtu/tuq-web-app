@@ -7,6 +7,10 @@ class Maestro{
     escolaridad;
     coordinador;
     carrera;
+    status;
+    created_at;
+    updated_at;
+    deleted_at;
 }
 
 class UsuarioMaestroAdd {
@@ -34,5 +38,23 @@ class MaestroAdd {
   }
 }
 
+class MaestroUpdate {
+  constructor(maestro) {
+    this.maestro_id = maestro.maestro_id;
+    this.nombre = maestro.nombre;
+    this.apellido_paterno = maestro.apellido_paterno;
+    this.apellido_materno = maestro.apellido_materno;
+    this.escolaridad = maestro.escolaridad;
+    this.coordinador = maestro.coordinador;
+    this.carrera = maestro.carrera;
+  }
+}
 
-module.exports = { Maestro, UsuarioMaestroAdd, MaestroAdd };
+class MaestroUpdateStatus {
+  constructor(maestro) {
+    this.maestro_id = maestro.maestro_id;
+    this.status = maestro.status == 1 ? 1 : 2;
+  }
+}
+
+module.exports = { Maestro, UsuarioMaestroAdd, MaestroAdd, MaestroUpdate, MaestroUpdateStatus };

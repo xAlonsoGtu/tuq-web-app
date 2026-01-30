@@ -44,36 +44,6 @@ module.exports = pool;
 // Si su aplicación web utiliza un solo cliente conectado, todas las consultas dse ejecutarán en serie, una tras otra.
 
 
-// Simple query (automaticamente libera la conexion después del query)
-// //Ejemplos de querys
-// async function registerPerson(person) {
-//   const text = `
-//     INSERT INTO people (fullname, gender, phone, age)
-//     VALUES ($1, $2, $3, $4)
-//     RETURNING id
-//   `;
-//   const values = [person.fullname, person.gender, person.phone, person.age];
-//   return pool.query(text, values);
-// }
-
-// async function getPerson(personId) {
-//   const text = `SELECT * FROM people WHERE id = $1`;
-//   const values = [personId];
-//   return pool.query(text, values);
-// }
-
-// async function updatePersonName(personId, fullname) {
-//   const text = `UPDATE people SET fullname = $2 WHERE id = $1`;
-//   const values = [personId, fullname];
-//   return pool.query(text, values);
-// }
-
-// async function removePerson(personId) {
-//   const text = `DELETE FROM people WHERE id = $1`;
-//   const values = [personId];
-//   return pool.query(text, values);
-// }
-
 ////Transaction acid BEGIN CALLBACK END
 // try {
 //   await client.query('BEGIN')

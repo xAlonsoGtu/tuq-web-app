@@ -25,7 +25,7 @@ import { StatusTable } from '../../shared/statusTable';
 import Pagination from '@mui/material/Pagination';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import { MaestroMenu } from './maestroMenu';
+import { MaestroMenu, MaestroTableMenu } from './maestroTableMenu';
 
 //Iniciamos componente
 function MaestroPage(){
@@ -197,7 +197,7 @@ function MaestroPage(){
                           <StatusTable status={row.status}/>
                         </TableCell>
                         <TableCell>
-                          <MaestroMenu maestro={row}/>
+                          <MaestroTableMenu maestro={row}/>
                         </TableCell>
                       </TableRow>
                     ))}

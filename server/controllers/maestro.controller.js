@@ -2,7 +2,7 @@
 const md5 = require('md5');
 const UsuarioRepository = require('../modules/usuario.repository.js');
 const MaestroRepository = require('../modules/maestro.repository.js');
-const { MaestroAdd } = require('../models/maestro.model.js');
+const { MaestroAdd, MaestroUpdate, MaestroUpdateStatus } = require('../models/maestro.model.js');
 const { UsuarioAdd } = require('../models/usuario.model.js');
 
 //Cramos objeto controllador
@@ -40,6 +40,114 @@ maestroCtrl.agregar = async (req, res) => {
             }
 
         } else return res.status(400).send({ success: false, error: "Usuario no creado" });
+        
+    }
+    catch(e){
+        //Si ocurre un error lo mostramos en terminal y regresamos error 400
+        console.log(e);
+        return res.status(400).send({ success: false, error: e.message});
+    }
+}
+
+//Función para editar
+maestroCtrl.editar = async (req, res) => {
+    try{
+        // Validate request
+        if (!req.body) return res.status(400).send({ success: false, error: "Sin contenido en la petición" });
+        
+        // Obtenemos valores del body
+        let maestro = new MaestroUpdate(req.body);
+
+        //Actualizamos el registro en la BD
+        var rMaestro = await MaestroRepository.updateMaestro(maestro);
+
+        //Validamos respuesta
+        if(rMaestro.success){
+            return res.status(200).send({ success: true, payload: rMaestro.payload });
+        }else{
+            return res.status(400).send({ success: false, error: "Maestro no actualizado" });
+        }
+        
+    }
+    catch(e){
+        //Si ocurre un error lo mostramos en terminal y regresamos error 400
+        console.log(e);
+        return res.status(400).send({ success: false, error: e.message});
+    }
+}
+
+//Función para editar status
+maestroCtrl.editarStatus = async (req, res) => {
+    try{
+        // Validate request
+        if (!req.body) return res.status(400).send({ success: false, error: "Sin contenido en la petición" });
+
+        // Obtenemos valores del body
+        let maestro = new MaestroUpdateStatus(req.body);
+
+        //Actualizamos el registro en la BD
+        var rMaestro = await MaestroRepository.updateStatusMaestro(maestro);
+
+        //Validamos respuesta
+        if(rMaestro.success){
+            return res.status(200).send({ success: true, payload: rMaestro.payload });
+        }else{
+            return res.status(400).send({ success: false, error: "Maestro no actualizado" });
+        }
+        
+    }
+    catch(e){
+        //Si ocurre un error lo mostramos en terminal y regresamos error 400
+        console.log(e);
+        return res.status(400).send({ success: false, error: e.message});
+    }
+}
+
+//Función para eliminar
+maestroCtrl.eliminar = async (req, res) => {
+    try{
+        // Validate request
+        if (!req.body) return res.status(400).send({ success: false, error: "Sin contenido en la petición" });
+        
+        // Obtenemos valores
+        var maestro_id = req.params.id;
+
+        //Actualizamos el registro en la BD
+        var rMaestro = await MaestroRepository.deleteMaestro(maestro_id);
+
+        //Validamos respuesta
+        if(rMaestro.success){
+            return res.status(200).send({ success: true, payload: rMaestro.payload });
+        }else{
+            return res.status(400).send({ success: false, error: "Maestro no eliminado" });
+        }
+        
+    }
+    catch(e){
+        //Si ocurre un error lo mostramos en terminal y regresamos error 400
+        console.log(e);
+        return res.status(400).send({ success: false, error: e.message});
+    }
+}
+
+//Función para obtener
+maestroCtrl.obtener = async (req, res) => {
+    try{
+        // Validate request
+        if (!req.body) return res.status(400).send({ success: false, error: "Sin contenido en la petición" });
+        
+        // Obtenemos valores
+        var maestro_id = req.params.id;
+
+        //Actualizamos el registro en la BD
+        var rMaestro = await MaestroRepository.getMaestro(maestro_id);
+
+        //Validamos respuesta
+        if(rMaestro.success){
+            return res.status(200).send({ success: true, payload: rMaestro.payload });
+        }else{
+            return res.status(400).send({ success: false, error: "Maestro no eliminado" });
+        }
         
     }
     catch(e){
