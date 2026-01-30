@@ -22,3 +22,5 @@ module.exports = class UsuarioAdd {
     this.tipo_usuario = tipo_usuario;
   }
 }
+
+module.exports = { UsuarioAdd, Usuario };

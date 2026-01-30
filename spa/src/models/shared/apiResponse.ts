@@ -10,8 +10,9 @@ export interface ApiResponse<T> {
 export class PaginatorResponse {
     constructor(
       public total: number,
-      public pageIndex: string,
-      public pageSize: number
+      public pageIndex: number,
+      public pageSize: number,
+      public pages: number
     ) { }
   }
   

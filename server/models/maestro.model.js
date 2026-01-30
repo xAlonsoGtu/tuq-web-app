@@ -7,6 +7,10 @@ module.exports = class Maestro{
     escolaridad;
     coordinador;
     carrera;
+    status;
+    created_at;
+    updated_at;
+    deleted_at;
 }
 
 module.exports = class UsuarioMaestroAdd {
@@ -33,5 +37,4 @@ module.exports = class MaestroAdd {
     this.carrera = nUsuario.carrera;
   }
 }
-
 
