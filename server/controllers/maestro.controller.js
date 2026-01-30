@@ -6,7 +6,7 @@ const { MaestroAdd, UsuarioMaestroAdd } = require('../models/maestro.model.js');
 const { UsuarioAdd } = require('../models/usuario.model.js');
   
 
-//Cramos objeto controllador
+//Cramos objeto controllador: se define dentro de los corchetes como un ojeto vacío.
 const maestroCtrl = {};
 
 //Definimos una función dentro del objeto controllador
