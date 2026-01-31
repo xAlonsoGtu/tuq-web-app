@@ -1,4 +1,4 @@
-export class Maestro{
+class Maestro{
     maestro_id;
     usuario_id;
     nombre;
@@ -7,9 +7,13 @@ export class Maestro{
     escolaridad;
     coordinador;
     carrera;
+    status;
+    created_at;
+    updated_at;
+    deleted_at;
 }
 
-export class UsuarioMaestroAdd {
+class UsuarioMaestroAdd {
   constructor(nUsuario) {
     this.username = nUsuario.username;
     this.password = nUsuario.password;
@@ -22,7 +26,7 @@ export class UsuarioMaestroAdd {
   }
 }
 
-export class MaestroAdd {
+class MaestroAdd {
   constructor(nUsuario, usuario_id) {
     this.usuario_id = usuario_id;
     this.nombre = nUsuario.nombre;
@@ -34,4 +38,23 @@ export class MaestroAdd {
   }
 }
 
-export default {MaestroAdd, UsuarioMaestroAdd};
+class MaestroUpdate {
+  constructor(maestro) {
+    this.maestro_id = maestro.maestro_id;
+    this.nombre = maestro.nombre;
+    this.apellido_paterno = maestro.apellido_paterno;
+    this.apellido_materno = maestro.apellido_materno;
+    this.escolaridad = maestro.escolaridad;
+    this.coordinador = maestro.coordinador;
+    this.carrera = maestro.carrera;
+  }
+}
+
+class MaestroUpdateStatus {
+  constructor(maestro) {
+    this.maestro_id = maestro.maestro_id;
+    this.status = Number(maestro.status) == 1 ? 1 : 2;
+  }
+}
+
+module.exports = { Maestro, UsuarioMaestroAdd, MaestroAdd, MaestroUpdate, MaestroUpdateStatus };

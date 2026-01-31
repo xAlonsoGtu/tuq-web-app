@@ -18,6 +18,7 @@ import TextField from '@mui/material/TextField';
 import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import BusinessCenterOutlinedIcon from '@mui/icons-material/BusinessCenterOutlined';
+import Skeleton from '@mui/material/Skeleton';
 
 //Liobrerias y componentes propios
 import { MaestroService } from './maestro.service';
@@ -82,7 +83,7 @@ function MaestroAgregarPage(){
     }
 
     return (
-        // Stack para mostrar elementos en VerticalAlignBottom, con separacion de 2
+        // Stack para mostrar elementos en vertical, con separacion de 2
         <Stack spacing={2}>
             {/* Creamos el árbol de rutas actuales */}
             <Breadcrumbs aria-label="breadcrumb">
@@ -102,133 +103,131 @@ function MaestroAgregarPage(){
                     Agregar maestro
                 </Typography>
             </Breadcrumbs>
-            
-            {/* Grid donde va el contenido de la página */}
-            <Grid container spacing={2}>
-                {/* Lo dividismo es 2 grid, el primero de tamaño 8, dejando espacio para colocar algo más al final */}
-                <Grid size={{ xs: 12, md: 8 }}>
-                    {/* Compoentne material Carta, con borde delineado */}
-                    <Card variant="outlined">
-                        {/* Etiqueta form con el evento onSubmit */}
-                        <form onSubmit={handleSubmit}>
-                            {/* Div del encabezado de la carta, para poner titulo y acciones */}
-                            <div className='box-form-head'>
-                                {/* Stack en formato horizontal con espacio entre los componentes */}
-                                <Stack direction="row" spacing={2}
-                                    sx={{
-                                        justifyContent: "space-between",
-                                        alignItems: "center"
-                                    }}>
-                                    {/* Div para poner texto sin que se corte */}
-                                    <Box sx={{ textOverflow: 'ellipsis', p: 2 }} className='box-form-head-title'>
-                                        <b>Nuevo maestro</b>
-                                    </Box>
-                                    {/* Boton de guardar */}
-                                    <Button 
-                                        variant="text"
-                                        loading = {status === 'cargando'} 
-                                        loadingPosition="start"
-                                        endIcon={<SaveOutlinedIcon />}
-                                        size="large"
-                                        disabled={status === 'cargando'} 
-                                        type="submit"
-                                        color="orange"
-                                        className="btn_big"
-                                    >
-                                        Guardar
-                                    </Button>
-                                </Stack>
-                            </div>
-                            {/* Contenido de la carta */}
-                            <CardContent className='box-form-body'>
-                                {/* Stack en direccion vertical */}
-                                <Stack direction='column' spacing={2}>
-                                    {/* Subtitulo del formulario */}
-                                    <p className='box-form-body-subtitle'>Datos del usuario</p>
-                                    {/* Stack para los inputs, en tamaño pequeño se ponen en vertical, en tamaño grand en horizontal */}
-                                    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 2, sm: 1, md: 1 }}>
-                                        {/* Inputs */}
-                                        <TextField fullWidth
-                                            variant="outlined" className='bg-white' size='small'
-                                            id="input-user" required 
-                                            label="Usuario" 
-                                            value={username} onChange={e => setUsername(e.target.value)} 
-                                        />
-                                        <TextField fullWidth
-                                            variant="outlined" className='bg-white' size='small'
-                                            id="input-password" required 
-                                            label="Password" 
-                                            value={password} onChange={e => setPassword(e.target.value)} 
-                                        />
-                                    </Stack>
-                                    <br />
-                                    {/* Subtitulo del formulario */}
-                                    <p className='box-form-body-subtitle'>Datos del maestro</p>
-                                    {/* Stack para los inputs, en tamaño pequeño se ponen en vertical, en tamaño grand en horizontal */}
-                                    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 2, sm: 1, md: 1 }}>
-                                        <TextField fullWidth
-                                            variant="outlined" className='bg-white' size='small'
-                                            id="input-nombre" required 
-                                            label="Nombre(s)" 
-                                            value={nombre} onChange={e => setNombre(e.target.value)} 
-                                        />
-                                        <TextField fullWidth
-                                            variant="outlined" className='bg-white' size='small'
-                                            id="input-ap" required 
-                                            label="Apellido paterno" 
-                                            value={apellido_paterno} onChange={e => setApellidoPa(e.target.value)} 
-                                        />
-                                        <TextField fullWidth
-                                            variant="outlined" className='bg-white' size='small'
-                                            id="input-ap" required 
-                                            label="Apellido materno" 
-                                            value={apellido_materno} onChange={e => setApellidoMa(e.target.value)} 
-                                        />
-                                    </Stack>
-                                    <br />
-                                    {/* Stack para los inputs, en tamaño pequeño se ponen en vertical, en tamaño grand en horizontal */}
-                                    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 2, sm: 1, md: 1 }}>
-                                        <TextField fullWidth select
-                                            variant="outlined" className='bg-white' size='small'
-                                            id="input-nombre" required 
-                                            label="Escolaridad" 
-                                            value={escolaridad} onChange={e => setEscolaridad(e.target.value)} 
-                                        >
-                                            {/* Cuando es input tipo select, creamos sus elementos obteniendo del catalogo el arreglo de valoress(key, value)
-                                            Usamos map para iterear en los elementos e ir devolviendo un componente MenuItem con sus propiedades */}
-                                            {ConstantsCatalogos.ESCOLARIDAD.map((option) => (
-                                                <MenuItem key={option.key} value={option.key}>
-                                                    {option.value}
-                                                </MenuItem>
-                                            ))}
-                                        </TextField>
-                                        <TextField fullWidth
-                                            variant="outlined" className='bg-white' size='small'
-                                            id="input-ap" required select
-                                            label="Carrera" 
-                                            value={carrera} onChange={e => setCarrera(e.target.value)} 
-                                        >
-                                            {ConstantsCatalogos.CARRERA.map((option) => (
-                                                <MenuItem key={option.key} value={option.key}>
-                                                    {option.value}
-                                                </MenuItem>
-                                            ))}
-                                        </TextField>
-                                        <TextField fullWidth
-                                            variant="outlined" className='bg-white' size='small'
-                                            id="input-ap" required 
-                                            label="Coordinador" 
-                                            value={coordinador} onChange={e => setCoordinador(e.target.value)} 
-                                        />
-                                    </Stack>
-                                </Stack>                             
-                            </CardContent>
-                        </form>
-                    </Card>
-                </Grid>
-            </Grid>
-        </Stack>
 
+            {/* Compoentne material Carta, con borde delineado */}
+            <Card variant="outlined">
+                {/* Etiqueta form con el evento onSubmit */}
+                <form onSubmit={handleSubmit}>
+                    {/* Div del encabezado de la carta, para poner titulo y acciones */}
+                    <div className='box-form-head'>
+                            {/* Stack en formato horizontal con espacio entre los componentes */}
+                            <Stack direction="row" spacing={2} sx={{ justifyContent: "space-between", alignItems: "center"}}>
+                                {/* Div para poner texto sin que se corte */}
+                                <Box sx={{ textOverflow: 'ellipsis', p: 2 }} className='box-form-head-title'>
+                                    <b>Nuevo maestro</b>
+                                </Box>
+                                {/* Boton de guardar */}
+                                <Button 
+                                    variant="text"
+                                    loading = {status === 'cargando'} 
+                                    loadingPosition="start"
+                                    endIcon={<SaveOutlinedIcon />}
+                                    size="large"
+                                    disabled={status === 'cargando'} 
+                                    type="submit"
+                                    color="orange"
+                                    className="btn_big"
+                                >
+                                    Guardar
+                                </Button>
+                            </Stack>
+                    </div>
+                    {/* Contenido de la carta */}
+                    <CardContent className='box-form-body'>
+                        {/* Stack en direccion vertical */}
+                        <Stack direction='column' spacing={2}>
+                            {/* Stack en direccion horizontal */}
+                            <Stack direction={{ xs: 'column', md: 'row' }} spacing={{ xs: 2, sm: 2, md: 4 }}>
+                                {/* Espacio para agregar la imágen */}
+                                    <div>
+                                        {/* Contenido por defecto mientras se cargan los datos */}
+                                        <Skeleton variant="circular" width={100} height={100} />
+                                    </div>
+                                    {/* Stack en direccion horizontal */}
+                                    <Stack spacing={{ xs: 2, sm: 2, md: 1 }} sx={{ flexGrow: 1 }}>
+                                        {/* Subtitulo del formulario */}
+                                        <p className='box-form-body-subtitle'>Datos del usuario</p>
+                                        {/* Stack para los inputs, en tamaño pequeño se ponen en vertical, en tamaño grand en horizontal */}
+                                        <Stack direction={{ xs: 'column', md: 'row' }} spacing={{ xs: 2, sm: 2, md: 1 }}>
+                                            {/* Inputs */}
+                                            <TextField fullWidth
+                                                variant="outlined" className='bg-white' size='small'
+                                                id="input-user" required 
+                                                label="Usuario" 
+                                                value={username} onChange={e => setUsername(e.target.value)} 
+                                            />
+                                            <TextField fullWidth
+                                                variant="outlined" className='bg-white' size='small'
+                                                id="input-password" required 
+                                                label="Password" 
+                                                value={password} onChange={e => setPassword(e.target.value)} 
+                                                />
+                                            </Stack>
+                                    </Stack>
+                            </Stack>
+                            {/* Subtitulo del formulario */}
+                            <p className='box-form-body-subtitle'>Datos del maestro</p>
+                            {/* Stack para los inputs, en tamaño pequeño se ponen en vertical, en tamaño grand en horizontal */}
+                            <Stack direction={{ sm: 'column', md: 'row' }} spacing={{ xs: 2, sm: 2, md: 1 }}>
+                                    <TextField fullWidth
+                                        variant="outlined" className='bg-white' size='small'
+                                        id="input-nombre" required 
+                                        label="Nombre(s)" 
+                                        value={nombre} onChange={e => setNombre(e.target.value)} 
+                                    />
+                                    <TextField fullWidth
+                                        variant="outlined" className='bg-white' size='small'
+                                        id="input-ap" required 
+                                        label="Apellido paterno" 
+                                        value={apellido_paterno} onChange={e => setApellidoPa(e.target.value)} 
+                                    />
+                                    <TextField fullWidth
+                                        variant="outlined" className='bg-white' size='small'
+                                        id="input-ap" required 
+                                        label="Apellido materno" 
+                                        value={apellido_materno} onChange={e => setApellidoMa(e.target.value)} 
+                                    />
+                            </Stack>
+                            {/* Stack para los inputs, en tamaño pequeño se ponen en vertical, en tamaño grand en horizontal */}
+                            <Stack direction={{ sm: 'column', md: 'row' }} spacing={{ xs: 2, sm: 2, md: 1 }}>
+                                    <TextField fullWidth select
+                                        variant="outlined" className='bg-white' size='small'
+                                        id="input-nombre" required 
+                                        label="Escolaridad" 
+                                        value={escolaridad} onChange={e => setEscolaridad(e.target.value)} 
+                                    >
+                                        {/* Cuando es input tipo select, creamos sus elementos obteniendo del catalogo el arreglo de valoress(key, value)
+                                        Usamos map para iterear en los elementos e ir devolviendo un componente MenuItem con sus propiedades */}
+                                        {ConstantsCatalogos.ESCOLARIDAD.map((option) => (
+                                            <MenuItem key={option.key} value={option.key}>
+                                                {option.value}
+                                            </MenuItem>
+                                        ))}
+                                    </TextField>
+                                    <TextField fullWidth
+                                        variant="outlined" className='bg-white' size='small'
+                                        id="input-ap" required select
+                                        label="Carrera" 
+                                        value={carrera} onChange={e => setCarrera(e.target.value)} 
+                                    >
+                                        {ConstantsCatalogos.CARRERA.map((option) => (
+                                            <MenuItem key={option.key} value={option.key}>
+                                                {option.value}
+                                            </MenuItem>
+                                        ))}
+                                    </TextField>
+                                    <TextField fullWidth
+                                        variant="outlined" className='bg-white' size='small'
+                                        id="input-ap" required 
+                                        label="Coordinador" 
+                                        value={coordinador} onChange={e => setCoordinador(e.target.value)} 
+                                    />
+                            </Stack>
+                        </Stack>                             
+                    </CardContent>
+                </form>
+            </Card>
+        </Stack>
     );
 }
 export default MaestroAgregarPage;

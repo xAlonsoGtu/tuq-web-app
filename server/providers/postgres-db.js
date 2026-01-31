@@ -16,6 +16,24 @@ pool.on('error', (err, client) => {
 //Exportamos conexión para ser usada por los repositorios
 module.exports = pool;
 
+
+//
+// INNER JOIN: Returns records that have matching values in both tables
+// LEFT JOIN: Returns all records from the left table, and the matched records from the right table
+// RIGHT JOIN: Returns all records from the right table, and the matched records from the left table
+// FULL JOIN: Returns all records when there is a match in either left or right table
+// CROSS JOIN: Returns the Cartesian product of two or more tables (combines every row from the first table with every row from the second table)
+
+//Otra opción para manejar conexiones
+// query = async (text, params) => {
+//   const start = Date.now()
+//   const res = await pool.query(text, params)
+//   const duration = Date.now() - start
+//   console.log('executed query', { text, duration, rows: res.rowCount })
+//   return res
+// }
+// module.exports = query;
+
 // pool - permite generar queries de forma frecuente sin tener que estar conectándonos una y otra vez a la BD. Ejecuciones en parelelo.
 // Limitaciones conexión cliente (SIN POOL):
 // Conectar un nuevo cliente al servidor PostgreSQL requiere un protocolo de enlace que puede tardar entre 20 y 30 milisegundos. 
@@ -25,36 +43,6 @@ module.exports = pool;
 // PostgreSQL solo puede procesar una consulta a la vez en un solo cliente conectado, siguiendo el principio de "primero en entrar, primero en salir". 
 // Si su aplicación web utiliza un solo cliente conectado, todas las consultas dse ejecutarán en serie, una tras otra.
 
-
-// Simple query (automaticamente libera la conexion después del query)
-// //Ejemplos de querys
-// async function registerPerson(person) {
-//   const text = `
-//     INSERT INTO people (fullname, gender, phone, age)
-//     VALUES ($1, $2, $3, $4)
-//     RETURNING id
-//   `;
-//   const values = [person.fullname, person.gender, person.phone, person.age];
-//   return pool.query(text, values);
-// }
-
-// async function getPerson(personId) {
-//   const text = `SELECT * FROM people WHERE id = $1`;
-//   const values = [personId];
-//   return pool.query(text, values);
-// }
-
-// async function updatePersonName(personId, fullname) {
-//   const text = `UPDATE people SET fullname = $2 WHERE id = $1`;
-//   const values = [personId, fullname];
-//   return pool.query(text, values);
-// }
-
-// async function removePerson(personId) {
-//   const text = `DELETE FROM people WHERE id = $1`;
-//   const values = [personId];
-//   return pool.query(text, values);
-// }
 
 ////Transaction acid BEGIN CALLBACK END
 // try {
