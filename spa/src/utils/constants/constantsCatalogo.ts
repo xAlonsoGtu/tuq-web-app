@@ -8,6 +8,16 @@ export class ConstantsCatalogos {
     return "Error al procesar la solicitud.";
   };
 
+  public static get MAESTRO_FILTRO(): WrapCatalogo[] {
+    var a = new Array();
+    a.push({ key: 'nombre', value: 'Nombre'});
+    a.push({ key: 'apellido_paterno', value: 'Apellido paterno'});
+    a.push({ key: 'apellido_materno', value: 'Apellido materno'});
+    a.push({ key: 'carrera', value: 'Carrera'});
+    a.push({ key: 'coordinador', value: 'Coordinador'});
+    return a;
+  }
+
   public static get CURRENCY_TYPE(): WrapCatalogo[] {
     var a = new Array();
     a.push({ key: 'USD', value: 'USD'});
@@ -57,4 +67,10 @@ export function getTipoUsuario(tipo: number) {
     case 4: return "Checador";
     default: return "";
   }
+}
+
+export function getCarrera(key: number) {
+  var fValue = ConstantsCatalogos.CARRERA.find(c => c.key == key);
+  if(fValue != null) return fValue.value;
+  return "";
 }
