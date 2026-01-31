@@ -1,4 +1,4 @@
-module.exports = class Usuario {
+class Usuario {
   constructor(){
   }
   usuario_id;
@@ -15,7 +15,7 @@ module.exports = class Usuario {
   deleted_at;
 }
 
-module.exports = class UsuarioAdd {
+class UsuarioAdd {
   constructor(newUser, tipo_usuario) {
     this.username = newUser.username;
     this.password = newUser.password;

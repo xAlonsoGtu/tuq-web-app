@@ -8,6 +8,9 @@ const { UsuarioAdd } = require('../models/usuario.model.js');
 //Cramos objeto controllador: se define dentro de los corchetes como un ojeto vacío.
 const maestroCtrl = {};
 
+//Constantes
+const MAX_LIMITS_LIST = 3;
+
 //Definimos una función dentro del objeto controllador
 //async = ejecutará promesas, por lo que debemos esperar respuestas
 //req = la petición http, incluye heaaders(token de acceso) y body(formulario)
@@ -84,6 +87,7 @@ maestroCtrl.editarStatus = async (req, res) => {
 
         // Obtenemos valores del body
         let maestro = new MaestroUpdateStatus(req.body);
+        console.log(maestro);
 
         //Actualizamos el registro en la BD
         var rMaestro = await MaestroRepository.updateStatusMaestro(maestro);
@@ -107,8 +111,8 @@ maestroCtrl.editarStatus = async (req, res) => {
 maestroCtrl.eliminar = async (req, res) => {
     try{
         // Validate request
-        if (!req.body) return res.status(400).send({ success: false, error: "Sin contenido en la petición" });
-        
+        if (!req.params.id) return res.status(400).send({ success: false, error: "Sin contenido en la petición" });
+
         // Obtenemos valores
         var maestro_id = req.params.id;
 
@@ -168,7 +172,7 @@ maestroCtrl.buscar = async(req, res) => {
         var pagina = Number(req.query.pagina);
 
         //Buscamos datos
-        var rList = await MaestroRepository.searchMaestro(palabra, ordenBy, orden, 2, pagina);
+        var rList = await MaestroRepository.searchMaestro(palabra, ordenBy, orden, MAX_LIMITS_LIST, pagina);
         if(rList.success){
             //Regresamos resulado 
             return res.status(200).send(rList);

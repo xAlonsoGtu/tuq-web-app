@@ -157,13 +157,13 @@ html, body {
 
 .table-cell-sort{
     font-weight: 600 !important;
-    color: #656565 !important;
-    background: #e9e9e9 !important;
+    color: #ffffff !important;
+    background: var(--primary-color) !important;
     cursor: pointer;
 }
 
 .table-cell-sort:hover{
-    color: #1976d2 !important;
+    color: #863c0a !important;
 }
 
 .table-cell-sort svg{
@@ -181,4 +181,11 @@ html, body {
     width: 55vw;
     overflow: auto;
     min-width: 100%;
+}
+
+tr:nth-child(even) { background-color: #f7f7f7; }
+tr:nth-child(odd) { background-color: #ffffff; }
+
+.MuiTableRow-hover:hover {
+    background-color: #96c7fe21 !important;
 }

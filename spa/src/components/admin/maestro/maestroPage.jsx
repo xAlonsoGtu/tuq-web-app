@@ -25,7 +25,10 @@ import { StatusTable } from '../../shared/statusTable';
 import Pagination from '@mui/material/Pagination';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import { MaestroMenu, MaestroTableMenu } from './maestroTableMenu';
+import { MaestroTableMenu } from './maestroTableMenu';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
+import Grow from '@mui/material/Grow';
 
 //Iniciamos componente
 function MaestroPage(){
@@ -46,6 +49,7 @@ function MaestroPage(){
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [paginator, setPaginator] = useState(null);
+  const [loadingModal, setLoadingModal] = useState(false);
 
   //Encabezados que se mostrarán en la tabla, indicamos si tiene campos de ordenamiento
   const encabezados = [
@@ -56,7 +60,7 @@ function MaestroPage(){
     { id: 5, label: "Apellido materno", ordenBy: "apellido_materno", orden: "desc", showFilter: true },
     { id: 6, label: "Carrera", ordenBy: "carrera", orden: "desc", showFilter: true },
     { id: 7, label: "Coordinador", ordenBy: "coordinador", orden: "desc", showFilter: true },
-    { id: 8, label: "Estado", ordenBy: "estado", orden: "desc", showFilter: true },
+    { id: 8, label: "Estado", ordenBy: "status", orden: "desc", showFilter: true },
     { id: 9, label: "", ordenBy: "", orden: "", showFilter: false },
   ];
 
@@ -70,7 +74,7 @@ function MaestroPage(){
 
   //BUSQUEDA
   //Busqueda por palabra
-  function buscarPorPalabra(){
+  function resetBusqueda(){
     //Ponemos lista sin elementos
     setList([]);
 
@@ -136,85 +140,108 @@ function MaestroPage(){
 
   //HTML
   return (
-    <Stack spacing={2}>
-                {/* Creamos el árbol de rutas actuales */}
-          <Breadcrumbs aria-label="breadcrumb">
-            {/* Material usa Typography, para poner etiquetas p */}
-            <Typography sx={{ color: 'text.primary', display: 'flex', alignItems: 'center' }}>
-              {/* Agregamos icono y texto */}
-              <BusinessCenterOutlinedIcon sx={{ mr: 0.5 }} fontSize="inherit" />
-                Maestros
-            </Typography>
-          </Breadcrumbs>
+    <>
+      {/* Componente loading */}
+      <Backdrop sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })} open={loadingModal}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
+      {/* Stack en vertical */}
+      <Stack spacing={2}>
+        {/* Creamos el árbol de rutas actuales */}
+        <Breadcrumbs aria-label="breadcrumb">
+          {/* Material usa Typography, para poner etiquetas p */}
+          <Typography sx={{ color: 'text.primary', display: 'flex', alignItems: 'center' }}>
+            {/* Agregamos icono y texto */}
+            <BusinessCenterOutlinedIcon sx={{ mr: 0.5 }} fontSize="inherit" />
+              Maestros
+          </Typography>
+        </Breadcrumbs>
 
-            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ justifyContent: "space-between", alignItems: "center"}}>
+        {/* Stack en Horizontal */}
+        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ justifyContent: "space-between", alignItems: "center"}}>
+          {/* Componente de busqueda */}
+          <InputSearch handleBuscar={resetBusqueda} placeholder="Buscar por nombre o usuario" handleSetPalabra={setPalabra}/>
+          {/* Boton de agregar */}
+          <Button 
+            variant="outlined"
+            startIcon={<AddOutlinedIcon />} 
+            size='large'
+            color="orange" onClick={handleAgregar} >
+              Maestro
+          </Button>
+        </Stack>
 
-            <InputSearch handleBuscar={buscarPorPalabra} placeholder="Buscar por nombre o usuario" handleSetPalabra={setPalabra}/>
-                        {/* Boton de agregar */}
-              
-                {/* Boton de agregar */}
-                <Button 
-                  variant="outlined"
-                  startIcon={<AddOutlinedIcon />} 
-                  size='large'
-                  color="orange" onClick={handleAgregar} >
-                  Maestro
-                </Button>
-            </Stack>   
-            {loading ? (
-                        <SkeletonTable/>
-                      ) :     
-                      (
-                        <Paper className='div-table-scroll'>
-                <Table stickyHeader>
+        {/* Si hay datos cargando mostramos componente skeleton, de lo contrario mostramos tabla */}
+        {
+          loading ? ( 
+            <SkeletonTable/>
+          ) :     
+          (
+            // Componente paper, funcinoa como div con fondo y sombra, asignamos clase scroll para que la tabla funcione en moviles
+            <Paper className='div-table-scroll'>
+                {/* Tabla material, indicamos que encabezado debe permanecer arriba */}
+                <Table stickyHeader>                  
                   <TableHead>
                     <TableRow className='table-head-row'>
+                      {/* Recorremos el objeto encabezados, para ir creando componentes por cada elemento */}
                       {encabezados.map((e) => (
                         <TableCell key={e.id} className='table-cell-sort'>
-                          { e.showFilter ? 
-                          <span onClick={() => handleChangeOrderBy(e.ordenBy)}>
-                            {e.label} 
-                            {e.ordenBy == ordenBy && (
-                              orden == "desc" ? <ArrowDownwardIcon sx={{ fontSize: 16 }} /> : <ArrowUpwardIcon sx={{ fontSize: 16 }} />
-                            )}                  
-                          </span> : <span>{e.label}</span> }
+                          {/* Mostramos título del encabezado y si tiene ordenamiento mostramos iconos */}
+                          { 
+                            e.showFilter ? 
+                            <span onClick={() => handleChangeOrderBy(e.ordenBy)}>
+                              {e.label} 
+                              {e.ordenBy == ordenBy && (
+                                orden == "desc" ? <ArrowDownwardIcon sx={{ fontSize: 18 }} /> : <ArrowUpwardIcon sx={{ fontSize: 18 }} />
+                              )}                  
+                            </span> : <span>{e.label}</span> 
+                          }
                         </TableCell>
                       ))
                       }
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {list.map((row) => (
-                      <TableRow key={row.maestro_id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                        <TableCell className='table-cell-img'><Avatar sx={{ bgcolor: deepOrange[500] }}>U</Avatar></TableCell>
-                        <TableCell>{row.username}</TableCell>
-                        <TableCell>{row.nombre}</TableCell>
-                        <TableCell>{row.apellido_paterno}</TableCell>
-                        <TableCell>{row.apellido_materno}</TableCell>
-                        <TableCell>{getCarrera(row.carrera)}</TableCell>
-                        <TableCell>{row.coordinador}</TableCell>
-                        <TableCell>
-                          <StatusTable status={row.status}/>
-                        </TableCell>
-                        <TableCell>
-                          <MaestroTableMenu maestro={row}/>
-                        </TableCell>
-                      </TableRow>
+                    {/* Iteramos sobre la lista de registros */}
+                    {list.map((row, index) => (
+                      // Efectos de animacion
+                      <Grow in={!loading} timeout={(index*250) + 250}>
+                        <TableRow key={row.maestro_id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }} hover>
+                          <TableCell className='table-cell-img'><Avatar sx={{ bgcolor: deepOrange[500] }}>U</Avatar></TableCell>
+                          <TableCell>{row.username}</TableCell>
+                          <TableCell>{row.nombre}</TableCell>
+                          <TableCell>{row.apellido_paterno}</TableCell>
+                          <TableCell>{row.apellido_materno}</TableCell>
+                          <TableCell>{getCarrera(row.carrera)}</TableCell>
+                          <TableCell>{row.coordinador}</TableCell>
+                          <TableCell>
+                            {/* Componente de status */}
+                            <StatusTable status={row.status}/>
+                          </TableCell>
+                          <TableCell>
+                            {/* Componente de menu con opciones */}
+                            <MaestroTableMenu maestro={row} setLoadingModal={setLoadingModal} onComplete={resetBusqueda}/>
+                          </TableCell>
+                        </TableRow>
+                      </Grow>
                     ))}
                   </TableBody>
                 </Table>
-                        </Paper>
- 
-                      ) 
-            }     
-                    {
+              </Paper>
+            ) 
+        }     
+        
+        {/* Si hay paginator, mostramos paginacion */}
+        {
           paginator != null  && 
-            <Stack direction="row" spacing={2} sx={{ justifyContent: "space-between", alignItems: "center"}}>
-                <Box className="paginator-total">{paginator.pageIndex * paginator.pageSize + 1} - {paginator.pageIndex * paginator.pageSize + paginator.pageSize} de {paginator.total}</Box>
-                <Pagination count={paginator.pages} page={pagina + 1} onChange={handlePaginator} showFirstButton showLastButton/>
-            </Stack>
+          <Stack direction="row" spacing={2} sx={{ justifyContent: "space-between", alignItems: "center"}}>
+            <Box className="paginator-total">{paginator.pageIndex * paginator.pageSize + 1} - {paginator.pageIndex * paginator.pageSize + paginator.pageSize} de {paginator.total}</Box>
+              <Pagination count={paginator.pages} page={pagina + 1} onChange={handlePaginator} showFirstButton showLastButton/>
+          </Stack>
         }   
     </Stack>
+    </>
+
     );
 }
 export default MaestroPage;

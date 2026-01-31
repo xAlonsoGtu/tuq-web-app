@@ -66,10 +66,9 @@ MaestroRepository.updateStatusMaestro = async(maestro) => {
         //Indicamos parámetros del query
         const values = [maestro.maestro_id, maestro.status];
 
-        console.log(maestro);
         //Ejecutamos query y esperamos respuesta
         var res = await pool.query(text, values);
-        
+        console.log(res);
         //Evaluamos respuesta, si no hay información lanzamos error 
         if(res == null || res.rowCount === 0) throw new Error('Registro no creado.');
         
@@ -81,7 +80,7 @@ MaestroRepository.updateStatusMaestro = async(maestro) => {
     }
 }
 
-MaestroRepository.deleteMaestro = async(maestro) => {
+MaestroRepository.deleteMaestro = async(maestro_id) => {
     try{
         //Creamos query de update
         const text = `
@@ -98,7 +97,7 @@ MaestroRepository.deleteMaestro = async(maestro) => {
         //Evaluamos respuesta, si no hay información lanzamos error 
         if(res == null || res.rowCount === 0) throw new Error('Registro no creado.');
         
-        return { success: true, payload: res.rows[0].maestro_id };
+        return { success: true, payload: maestro_id };
     }catch(e){
         //Lanzamos error
         throw new Error(e.message);

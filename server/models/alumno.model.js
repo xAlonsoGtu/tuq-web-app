@@ -1,4 +1,4 @@
-module.exports = class Alumno {
+class Alumno {
   constructor(){
   }
   alumno_id;
@@ -15,7 +15,7 @@ module.exports = class Alumno {
   deleted_at;
 }
 
-module.exports = class UsuarioAlumnoAdd {
+class UsuarioAlumnoAdd {
   constructor(nUsuario) {
     this.username = nUsuario.username;
     this.password = nUsuario.password;
@@ -27,7 +27,7 @@ module.exports = class UsuarioAlumnoAdd {
   }
 }
 
-module.exports = class AlumnoAdd {
+class AlumnoAdd {
   constructor(nUsuario, usuario_id) {
     this.usuario_id = usuario_id;
     this.nombre = nUsuario.nombre;
@@ -37,3 +37,6 @@ module.exports = class AlumnoAdd {
     this.cuatrimestre = nUsuario.cuatrimestre;
   }
 }
+
+
+module.exports = { Alumno, UsuarioAlumnoAdd, AlumnoAdd };
