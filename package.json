@@ -1,8 +1,13 @@
 {
   "name": "tuq_web_app",
   "version": "1.0.0",
-  "main": "index.js",
   "type": "commonjs",
+  "main": "index.js",
+<<<<<<< HEAD
+  "type": "commonjs",
+=======
+  "type":"commonjs",
+>>>>>>> e29ecee32b6fde3235f20248334eea1e6aa95796
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./server/index.js"

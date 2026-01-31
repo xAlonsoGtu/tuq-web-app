@@ -6,7 +6,7 @@ require('dotenv').config(); //inciamos configuracion de archivo .env para guarda
 
 //Obtenemos el ambiente(pruebas o producción)
 const nodeEnv = process.env.NODE_ENV || 'development';
-console.log(`Running in ${nodeEnv} mode`);
+//console.log(Running in ${nodeEnv} mode);
 
 //Indicamos el puerto de escucha del servidor
 const PORT = process.env.PORT || 3001;
@@ -45,5 +45,5 @@ app.use('/api', indexRouter);
 
 //Iniciamos servidor en PORT
 app.listen(PORT, () => {
-    console.log(`listening on port ${PORT}`);
+    //console.log(listening on port ${PORT});
 });
