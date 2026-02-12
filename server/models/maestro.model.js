@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+module.exports = class Maestro{
+=======
 class Maestro{
+>>>>>>> 2ada4b773214607cf99115220c89b75690ec6352
     maestro_id;
     usuario_id;
     nombre;
@@ -13,7 +17,11 @@ class Maestro{
     deleted_at;
 }
 
+<<<<<<< HEAD
+module.exports = class UsuarioMaestroAdd {
+=======
 class UsuarioMaestroAdd {
+>>>>>>> 2ada4b773214607cf99115220c89b75690ec6352
   constructor(nUsuario) {
     this.username = nUsuario.username;
     this.password = nUsuario.password;
@@ -26,7 +34,11 @@ class UsuarioMaestroAdd {
   }
 }
 
+<<<<<<< HEAD
+module.exports = class MaestroAdd {
+=======
 class MaestroAdd {
+>>>>>>> 2ada4b773214607cf99115220c89b75690ec6352
   constructor(nUsuario, usuario_id) {
     this.usuario_id = usuario_id;
     this.nombre = nUsuario.nombre;
@@ -38,6 +50,8 @@ class MaestroAdd {
   }
 }
 
+<<<<<<< HEAD
+=======
 class MaestroUpdate {
   constructor(maestro) {
     this.maestro_id = maestro.maestro_id;
@@ -58,3 +72,4 @@ class MaestroUpdateStatus {
 }
 
 module.exports = { Maestro, UsuarioMaestroAdd, MaestroAdd, MaestroUpdate, MaestroUpdateStatus };
+>>>>>>> 2ada4b773214607cf99115220c89b75690ec6352

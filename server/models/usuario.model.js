@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+module.exports = class Usuario {
+=======
 class Usuario {
+>>>>>>> 2ada4b773214607cf99115220c89b75690ec6352
   constructor(){
   }
   usuario_id;
@@ -15,7 +19,11 @@ class Usuario {
   deleted_at;
 }
 
+<<<<<<< HEAD
+module.exports = class UsuarioAdd {
+=======
 class UsuarioAdd {
+>>>>>>> 2ada4b773214607cf99115220c89b75690ec6352
   constructor(newUser, tipo_usuario) {
     this.username = newUser.username;
     this.password = newUser.password;
