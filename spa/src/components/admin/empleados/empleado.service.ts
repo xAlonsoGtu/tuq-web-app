@@ -7,7 +7,7 @@ import { del, get, getWithParams, post, put } from "../../../utils/services/api-
 export class EmpleadoService {
     // Agregar
     public agregar(form: EmpleadoForm) {
-        return post<EmpleadoForm, string>(ConstantsRoutes.EMPLEADO_AGREGAR, form, true);
+        return post<EmpleadoForm, string>(ConstantsRoutes.EMPLEADOS_AGREGAR, form, true);
     }
 
     // Listar / Buscar
@@ -18,6 +18,6 @@ export class EmpleadoService {
         params.append("orden", orden);
         params.append("pagina", pagina.toString());
 
-        return getWithParams<EmpleadoList[]>(ConstantsRoutes.EMPLEADO_BUSCAR, params, true);
+        return getWithParams<EmpleadoList[]>(ConstantsRoutes.EMPLEADOS_BUSCAR, params, true);
     }
 }

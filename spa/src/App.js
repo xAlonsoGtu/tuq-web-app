@@ -26,6 +26,11 @@ const MaestroHomePage = lazy(() => import('./components/user/maestro/maestroHome
 const AvisoPage = lazy(() => import('./components/admin/aviso/AvisoPage'));
 const AvisoAgregarPage = lazy(() => import('./components/admin/aviso/avisoAgregapage'));
 
+//Empleados
+
+const EmpleadoPage = lazy(() => import('./components/admin/empleados/empleadoPage'));
+const EmpleadoAgregarPage = lazy(() => import('./components/admin/empleados/empleadoAgregarPage'));
+
 function App() {
   return (
     // Definimos rutas
@@ -51,6 +56,9 @@ function App() {
             <Route path="avisos/agregar" element={<AvisoAgregarPage />} />
             <Route path="maestro/editar/:id" element={<MaestroEditarPage />} />
             <Route path="maestro/perfil" element={<MaestroPerfilPage />} />
+
+            <Route path="empleado" element={<EmpleadoPage />} />
+            <Route path="empleado/agregar" element={<EmpleadoAgregarPage />} />
           </Route>
         </Route>
 

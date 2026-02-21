@@ -17,6 +17,8 @@ export class ConstantsRoutes {
     static get SPA_EMPLEADO_EDITAR() { return "/admin/empleado/editar"; };
     static get SPA_MAESTRO_EDITAR() { return "/admin/maestro/editar"; };
     static get SPA_MAESTRO_PERFIL() { return "/admin/maestro/perfil"; };
+    static get SPA_AVISO_LISTAR() { return "/admin/avisos"; };
+    static get SPA_AVISO_AGREGAR() { return "/admin/avisos/agregar"; };
 
     /* API ROUTES */
     /* AUTH */

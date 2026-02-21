@@ -9,12 +9,13 @@ import {
   Card, CardContent, Stack, TextField, MenuItem,
   Typography, Breadcrumbs, Link, Box
 } from '@mui/material';
-import { LoadingButton } from '@mui/lab';
 import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import BusinessCenterOutlinedIcon from '@mui/icons-material/BusinessCenterOutlined';
 import Switch from '@mui/material/Switch';
 import toast from 'react-hot-toast';
+import Button from '@mui/material/Button';
+
 
 function EmpleadoAgregarPage() {
   const [status, setStatus] = useState('');
@@ -72,7 +73,7 @@ function EmpleadoAgregarPage() {
               <Box sx={{ textOverflow: 'ellipsis', p: 2 }} className='box-form-head-title'>
                 <b>Nuevo empleado</b>
               </Box>
-              <LoadingButton
+              <Button
                 loading={status === 'cargando'}
                 endIcon={<SaveOutlinedIcon />}
                 type="submit"
@@ -80,7 +81,7 @@ function EmpleadoAgregarPage() {
                 color="primary"
               >
                 Guardar
-              </LoadingButton>
+              </Button>
             </Stack>
           </div>
 

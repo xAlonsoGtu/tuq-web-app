@@ -1,7 +1,7 @@
 const md5 = require('md5');
 const UsuarioRepository = require('../modules/usuario.repository.js');
 const empleadosRepository = require('../modules/empleados.repository.js');
-const { empleadosAdd, UsuarioempleadosAdd } = require('../models/emmpleados.model.js');
+const { empleadosAdd, UsuarioempleadosAdd } = require('../models/empleos.model.js');
 const { UsuarioAdd } = require('../models/usuario.model.js');
   
 const empleadosCtrl = {};
@@ -20,11 +20,11 @@ empleadosCtrl.agregar = async (req, res) => {
         if(rUsuario.success){
             
             let empleados = new empleadosAdd(req.body, rUsuario.payload);
-            var empleados = await empleadosRepository.addempleados(empleados);
+            var rEmpleado = await empleadosRepository.addempleados(empleados);
 
            
-            if(empleados.success){
-                return res.status(200).send({ success: true, payload: empleados.payload });
+            if(rEmpleado.success){
+                return res.status(200).send({ success: true, payload: rEmpleado.payload });
             }else{
                 return res.status(400).send({ success: false, error: "empleados no creado" });
             }
