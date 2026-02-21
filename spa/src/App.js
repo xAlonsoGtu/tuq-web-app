@@ -11,6 +11,9 @@ const LoginPage = lazy(() => import('./components/auth/login/loginPage'));
 const MaestroPage = lazy(() => import('./components/admin/maestro/maestroPage'));
 const MaestroAgregarPage = lazy(() => import('./components/admin/maestro/maestroAgregarPage'));
 
+const AvisoPage = lazy(() => import('./components/admin/aviso/AvisoPage'));
+const AvisoAgregarPage = lazy(() => import('./components/admin/aviso/avisoAgregapage'));
+
 function App() {
   return (
     // Definimos rutas
@@ -28,7 +31,9 @@ function App() {
             <Route path="" element={<NoMatch />} />
             <Route path="panel" element={<AdminPanelPage />} />
             <Route path="maestro" element={<MaestroPage />} />
+            <Route path="avisos" element={<AvisoPage />} />
             <Route path="maestro/agregar" element={<MaestroAgregarPage />} />
+            <Route path="avisos/agregar" element={<AvisoAgregarPage />} />
           </Route>
         </Route>
 

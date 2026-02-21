@@ -42,7 +42,7 @@ function MaestroAgregarPage(){
     //Objeto de router-dom para redirigirnos a otras partes de la aplicación
     const navigate = useNavigate();
 
-     //Servicios/funciones del modulo auth
+     //Servicios/funciones del modulo auth 
     const maestroService = new MaestroService();
 
     //Funcion asincrona del formulario que ejecuta el boton agregar
