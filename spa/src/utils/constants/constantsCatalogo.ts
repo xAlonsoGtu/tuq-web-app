@@ -18,24 +18,6 @@ export class ConstantsCatalogos {
     return a;
   }
 
-  public static get CURRENCY_TYPE(): WrapCatalogo[] {
-    var a = new Array();
-    a.push({ key: 'USD', value: 'USD'});
-    a.push({ key: 'MXN', value: 'MXN'});
-    a.push({ key: 'EUR', value: 'EUR'});
-    return a;
-  }
-
-  public static get EVENT_STATE(): WrapCatalogoNumber[] {
-    var a = new Array();
-    a.push({ key: 0, value: 'All states'});
-    a.push({ key: 1, value: 'Active'});
-    a.push({ key: 2, value: 'Inactive'});
-    a.push({ key: 99, value: 'Not approved'});
-    a.push({ key: 5, value: 'Live'});
-    return a;
-   }
-
   public static get ESCOLARIDAD(): WrapCatalogoNumber[] {
     var a = new Array();
     a.push({ key: 0, value: 'NA'});

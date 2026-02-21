@@ -8,6 +8,8 @@
 # production
 /build
 /spa/build
+/server/spa/build
+/server/public
 
 # misc
 .DS_Store

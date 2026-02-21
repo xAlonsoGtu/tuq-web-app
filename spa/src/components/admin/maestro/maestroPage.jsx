@@ -33,7 +33,7 @@ import Grow from '@mui/material/Grow';
 //Iniciamos componente
 function MaestroPage(){
   //objeto de router-dom para redirigirnos a otras partes de la aplicación
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   //Servicios/funciones del modulo auth
   const maestroService = new MaestroService();
