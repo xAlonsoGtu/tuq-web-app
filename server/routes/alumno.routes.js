@@ -7,4 +7,5 @@ const { verifyTokenAdmin } = require('../middleware/auth');
 
 router.post('/agregar', verifyTokenAdmin, alumnoController.agregar);
 
+
 module.exports = router;

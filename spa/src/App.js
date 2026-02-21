@@ -10,6 +10,9 @@ import AdminPanelPage from './components/admin/panel/adminPanelPage';
 const LoginPage = lazy(() => import('./components/auth/login/loginPage'));
 const MaestroPage = lazy(() => import('./components/admin/maestro/maestroPage'));
 const MaestroAgregarPage = lazy(() => import('./components/admin/maestro/maestroAgregarPage'));
+const AlumnoPage = lazy(() => import('./components/admin/alumno/alumnoPage'));
+const AlumnoAgregarPage = lazy(() => import('./components/admin/alumno/alumnoAgregarPage'));
+
 
 function App() {
   return (
@@ -29,6 +32,9 @@ function App() {
             <Route path="panel" element={<AdminPanelPage />} />
             <Route path="maestro" element={<MaestroPage />} />
             <Route path="maestro/agregar" element={<MaestroAgregarPage />} />
+            <Route path="alumno" element={<AlumnoPage />} />
+            <Route path="alumno/agregar" element={<AlumnoAgregarPage />} />
+
           </Route>
         </Route>
 

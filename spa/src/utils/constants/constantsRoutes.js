@@ -19,4 +19,13 @@ export class ConstantsRoutes {
     static get MAESTRO_ELIMINAR() { return "/api/maestro/eliminar"; };
     static get MAESTRO_OBTENER() { return "/api/maestro/obtener"; };
     static get MAESTRO_BUSCAR() { return "/api/maestro/buscar"; };
+
+    /* ALUMNOS */
+static get ALUMNO_AGREGAR() { return "/api/alumno/agregar"; };
+
+static get SPA_ALUMNO_LISTAR() { return "/admin/alumno"; };
+static get SPA_ALUMNO_AGREGAR() { return "/admin/alumno/agregar"; };
+
+
 }
+
