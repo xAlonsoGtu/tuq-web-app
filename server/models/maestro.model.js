@@ -26,6 +26,8 @@ class UsuarioMaestroAdd {
   }
 }
 
+
+
 class MaestroAdd {
   constructor(nUsuario, usuario_id) {
     this.usuario_id = usuario_id;
@@ -37,9 +39,11 @@ class MaestroAdd {
     this.carrera = nUsuario.carrera;
   }
 }
+
+
 class MaestroUpdate {
   constructor(maestro) {
-    this.maestro_id = maestro.maestro_id;
+    this.maestro_id = Number(maestro.maestro_id);
     this.nombre = maestro.nombre;
     this.apellido_paterno = maestro.apellido_paterno;
     this.apellido_materno = maestro.apellido_materno;

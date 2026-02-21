@@ -1,3 +1,4 @@
+
 class Usuario {
   constructor(){
   }
@@ -14,6 +15,7 @@ class Usuario {
   updated_at;
   deleted_at;
 }
+
 
 class UsuarioAdd {
   constructor(newUser, tipo_usuario) {

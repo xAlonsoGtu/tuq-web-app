@@ -1,6 +1,6 @@
 //Librerias react y route
 import * as React from 'react';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 //Librerias material
@@ -28,6 +28,7 @@ import { UsuarioAuthContext } from './adminLayout';
 import { removeSession } from '../utils/services/session.service';
 import { ConstantsCatalogos, getTipoUsuario } from '../utils/constants/constantsCatalogo';
 import '../appStyle.css';
+import { ConstantsRoutes } from '../utils/constants/constantsRoutes';
 
 //Estilo material para el componente avatar
 const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -55,6 +56,12 @@ function AdminAppBar(props){
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  //Función de perfil
+  function handlePerfil(e){
+    //Navegamos a la ruta siguiente (login) remplazando posición actual
+    navigate(ConstantsRoutes.SPA_MAESTRO_PERFIL, { replace: true });
+  }
 
   //Función de logout
   function handleLogout(e){
@@ -168,7 +175,7 @@ function AdminAppBar(props){
           </Box>
           <Divider />
           {/* Lista de acciones */}
-          <MenuItem onClick={handleClose}>
+          <MenuItem onClick={handlePerfil}>
             <ListItemIcon>
               <AccountCircleOutlinedIcon fontSize="small" />
             </ListItemIcon>

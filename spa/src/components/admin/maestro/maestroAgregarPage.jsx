@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 import Link from '@mui/material/Link';
 import { Box } from '@mui/material';
 import Card from '@mui/material/Card';
-import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
@@ -42,7 +41,7 @@ function MaestroAgregarPage(){
     //Objeto de router-dom para redirigirnos a otras partes de la aplicación
     const navigate = useNavigate();
 
-     //Servicios/funciones del modulo auth
+     //Servicios/funciones del modulo auth 
     const maestroService = new MaestroService();
 
     //Funcion asincrona del formulario que ejecuta el boton agregar

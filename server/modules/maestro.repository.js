@@ -1,6 +1,5 @@
 //Importamos librerias
 const pool = require("../providers/postgres-db");
-const { search } = require("../routes/auth.routes");
 
 //Creamos nuevo objeto repository
 const MaestroRepository = {}
@@ -40,7 +39,7 @@ MaestroRepository.updateMaestro = async(maestro) => {
         `;
         //Indicamos parámetros del query
         const values = [maestro.maestro_id, maestro.nombre, maestro.apellido_paterno, maestro.apellido_materno, 
-            maestro.escolaridad, maestro.coordinador, maestro.carrera, new Date()];
+            maestro.escolaridad, maestro.carrera, maestro.coordinador, new Date()];
 
         //Ejecutamos query y esperamos respuesta
         var res = await pool.query(text, values);
@@ -48,7 +47,7 @@ MaestroRepository.updateMaestro = async(maestro) => {
         //Evaluamos respuesta, si no hay información lanzamos error 
         if(res == null || res.rowCount === 0) throw new Error('Registro no creado.');
         
-        return { success: true, payload: res.rows[0].maestro_id };
+        return { success: true, payload: res.rows[0] };
     }catch(e){
         //Lanzamos error
         throw new Error(e.message);
@@ -109,11 +108,11 @@ MaestroRepository.getMaestro = async(maestro_id) => {
         //Creamos query de busqueda
         const text = `
             SELECT maestros.maestro_id, maestros.usuario_id, maestros.nombre, maestros.apellido_paterno, maestros.apellido_materno, 
-                    maestros.carrera, maestros.coordinador, maestros.status, maestros.created_at, 
+                    maestros.carrera, maestros.coordinador, maestros.escolaridad, maestros.status, maestros.created_at, 
                     usuarios.username, usuarios.imagen_perfil, usuarios.qr_code 
             FROM maestros
             LEFT JOIN usuarios ON maestros.usuario_id = usuarios.usuario_id        
-            WHERE username = $1
+            WHERE maestro_id = $1
             LIMIT 1
         `;
         const values = [maestro_id];
@@ -125,7 +124,7 @@ MaestroRepository.getMaestro = async(maestro_id) => {
         if(res == null || res.rowCount === 0) throw new Error('No se encontró información.');
         
         //Devolvemos resultados
-        return { success: true, payload: res.rows };
+        return { success: true, payload: res.rows[0] };
     }catch(e){
         //Lanzamos error
         throw new Error(e.message);
