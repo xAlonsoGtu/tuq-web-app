@@ -13,6 +13,7 @@ export class ConfigService {
 
     //Url del API
     static get ApiURI() {
-        return "http://localhost:3001";
+        //return "http://localhost:3001";
+        return "https://tuq-app-e1-cl8ft.ondigitalocean.app";
     }    
 }

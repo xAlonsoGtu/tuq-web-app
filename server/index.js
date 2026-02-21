@@ -21,27 +21,29 @@ app.use(express.urlencoded({ extended: true })); //Indicamos uso de urlencoded p
 
 
 //Para PRODUCCIÓN, descomentar cuando se vea la ejecución en PRO
-//app.use(cors({origin: 'http://localhost:4200'}));
+//app.use(cors({origin: 'http://localhost:3000'}));
 //app.use(cors({origin: 'http://app.tuq.com'}));
-// const _app_folder = __dirname + '/spa/dist/spa';
-// const _app_folder_assets = __dirname + '/spa/dist/spa/assets/media';
-// app.get('*.js', express.static(_app_folder, {maxAge: '1y'}));
-// app.get('*.css', express.static(_app_folder, {maxAge: '1y'}));
-// app.get('*.ico', express.static(_app_folder, {maxAge: '1y'}));
-// app.get('*.png', express.static(_app_folder, {maxAge: '1y'}));
-// app.use('/assets/media', express.static(_app_folder_assets));
+const _app_folder = __dirname + '/spa/build';
+const _app_folder_assets = __dirname + '/spa/build/static';
+app.get('/*file.js', express.static(_app_folder, {maxAge: '1y'}));
+app.get('/*file.css', express.static(_app_folder, {maxAge: '1y'}));
+app.get('/*file.ico', express.static(_app_folder, {maxAge: '1y'}));
+app.get('/*file.png', express.static(_app_folder, {maxAge: '1y'}));
+app.get('/*file.json', express.static(_app_folder, {maxAge: '1y'}));
+app.use('/static', express.static(_app_folder_assets));
 
 //Descomentar cuando se vea la carga de archivos
-//app.use('/public', express.static('public'));
+app.use('/public', express.static('./server/public'));
 //app.use('/api/uploads', express.static('public/uploads'));
 
 //Indicamos uso de rutas
 app.use('/api', indexRouter);
 
 //Para PRODUCCIÓN, descomentar cuando se vea la ejecución en PRO
-// app.get('*', (req,res) => {
-//   res.sendFile(__dirname + "/spa/dist/spa/index.html")
-// });
+app.get('/{*splat}', (req,res) => {
+    //console.log(__dirname);
+   res.sendFile(__dirname + "/spa/build/index.html")
+});
 
 //Iniciamos servidor en PORT
 app.listen(PORT, () => {

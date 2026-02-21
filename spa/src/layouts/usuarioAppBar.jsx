@@ -1,6 +1,6 @@
 //Librerias react y route
 import * as React from 'react';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 //Librerias material
@@ -24,11 +24,10 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 import QrCodeOutlinedIcon from '@mui/icons-material/QrCodeOutlined';
 
 //Componentes y servicios propios
-import { UsuarioAuthContext } from './adminLayout';
+import { UsuarioAuthContext } from './usuarioLayout';
 import { removeSession } from '../utils/services/session.service';
-import { ConstantsCatalogos, getTipoUsuario } from '../utils/constants/constantsCatalogo';
+import { getTipoUsuario } from '../utils/constants/constantsCatalogo';
 import '../appStyle.css';
-import { ConstantsRoutes } from '../utils/constants/constantsRoutes';
 
 //Estilo material para el componente avatar
 const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -40,7 +39,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 //Componente AppBar, recibe props del padre
-function AdminAppBar(props){
+function UsuarioAppBar(){
   //Usamos hook de react para usar la función contexto
   const usuarioAuth = useContext(UsuarioAuthContext);
   
@@ -56,12 +55,6 @@ function AdminAppBar(props){
   const handleClose = () => {
     setAnchorEl(null);
   };
-
-  //Función de perfil
-  function handlePerfil(e){
-    //Navegamos a la ruta siguiente (login) remplazando posición actual
-    navigate(ConstantsRoutes.SPA_MAESTRO_PERFIL, { replace: true });
-  }
 
   //Función de logout
   function handleLogout(e){
@@ -84,15 +77,6 @@ function AdminAppBar(props){
             <a href="./">
               <img src={process.env.PUBLIC_URL+'/media/logo.png'} className="app-bar-logo" alt="logo" />
             </a>
-            {/* Boton para mostrar sideBar, aparece cuando es pantalla xs */}
-            <IconButton
-              className='app-bar-menu-icon'
-              aria-label="open drawer"
-              edge="start"
-              onClick={props.handle}
-              sx={{ mr: 2, display: { sm: 'none' } }}>
-              <MenuRoundedIcon />
-            </IconButton>  
           </Stack>                      
         </Box>
 
@@ -175,7 +159,7 @@ function AdminAppBar(props){
           </Box>
           <Divider />
           {/* Lista de acciones */}
-          <MenuItem onClick={handlePerfil}>
+          <MenuItem onClick={handleClose}>
             <ListItemIcon>
               <AccountCircleOutlinedIcon fontSize="small" />
             </ListItemIcon>
@@ -199,4 +183,4 @@ function AdminAppBar(props){
   );
 }
 
-export default AdminAppBar;
+export default UsuarioAppBar;

@@ -37,15 +37,15 @@ export function initSession(token: string, callBack: string): string{
   export function getUrlRedirect(usuario: UsuarioAuth): string {
     var url_return = "";
     switch (usuario.tipo) {
-      case 0: url_return = ConstantsRoutes.SPA_USER_HOME;
+      case 0: url_return = ConstantsRoutes.SPA_ALUMNO_HOME;
         break;
       case 1: url_return = ConstantsRoutes.SPA_ADMIN_HOME;
         break;
-      case 2: url_return = ConstantsRoutes.SPA_USER_HOME;
+      case 2: url_return = ConstantsRoutes.SPA_EMPLEADO_HOME;
         break;
-      case 3: url_return = ConstantsRoutes.SPA_USER_HOME;
+      case 3: url_return = ConstantsRoutes.SPA_MAESTRO_HOME;
         break;
-      case 4: url_return = ConstantsRoutes.SPA_CHEK_HOME;
+      case 4: url_return = ConstantsRoutes.SPA_CHECADOR_HOME;
         break;
     }
     return url_return;

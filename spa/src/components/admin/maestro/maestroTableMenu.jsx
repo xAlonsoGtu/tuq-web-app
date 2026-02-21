@@ -15,11 +15,16 @@ import toast from 'react-hot-toast';
 import { ConstantsCatalogos } from '../../../utils/constants/constantsCatalogo';
 import ConfirmacionDialog from '../../shared/confirmacionDialog';
 import ToggleOffOutlinedIcon from '@mui/icons-material/ToggleOffOutlined';
+import { useNavigate } from 'react-router-dom';
+import { ConstantsRoutes } from '../../../utils/constants/constantsRoutes';
 
 export function MaestroTableMenu({maestro, setLoadingModal, onComplete}){
   //Sevicio api
   const service = new MaestroService();
   const [showDialog, setShowDialog] = useState(false);
+
+    //Objeto de router-dom para redirigirnos a otras partes de la aplicación
+    const navigate = useNavigate();
 
   //Const mensaje aviso para eliminar
   const titulo_dialog = "¿Seguro de eliminar el registro del maestro?";
@@ -60,7 +65,8 @@ export function MaestroTableMenu({maestro, setLoadingModal, onComplete}){
   };
 
   function handleEditar(){
-      console.log(maestro);
+      //Navegamos a la ruta siguiente (agregar) remplazando posición actual
+      navigate(ConstantsRoutes.SPA_MAESTRO_EDITAR + "/" + maestro.maestro_id, { replace: true });
       setAnchorEl(null);
   };
 
