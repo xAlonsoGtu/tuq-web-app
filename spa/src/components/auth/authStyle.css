@@ -9,4 +9,8 @@
     text-align: center;
     width: 450px;
     margin-bottom: 100px;
+    padding: 50px 30px;
+    background: #fff;
+    border-radius: 25px;
+    box-shadow: rgba(223, 226, 231, 0.6) 0px 4px 8px;
 }

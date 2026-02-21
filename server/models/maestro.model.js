@@ -1,3 +1,4 @@
+
 class Maestro{
     maestro_id;
     usuario_id;
@@ -13,6 +14,7 @@ class Maestro{
     deleted_at;
 }
 
+
 class UsuarioMaestroAdd {
   constructor(nUsuario) {
     this.username = nUsuario.username;
@@ -26,6 +28,8 @@ class UsuarioMaestroAdd {
   }
 }
 
+
+
 class MaestroAdd {
   constructor(nUsuario, usuario_id) {
     this.usuario_id = usuario_id;
@@ -38,9 +42,10 @@ class MaestroAdd {
   }
 }
 
+
 class MaestroUpdate {
   constructor(maestro) {
-    this.maestro_id = maestro.maestro_id;
+    this.maestro_id = Number(maestro.maestro_id);
     this.nombre = maestro.nombre;
     this.apellido_paterno = maestro.apellido_paterno;
     this.apellido_materno = maestro.apellido_materno;
@@ -58,3 +63,4 @@ class MaestroUpdateStatus {
 }
 
 module.exports = { Maestro, UsuarioMaestroAdd, MaestroAdd, MaestroUpdate, MaestroUpdateStatus };
+

@@ -8,6 +8,7 @@ router.use('/maestro', require('./maestro.routes'));
 router.use('/alumno', require('./alumno.routes'));
 router.use('/avisos', require('./aviso.routes'));
 
+router.use('/empleados', require('./empleados.routes'));
 
 //Exportamos rutas que serán usadas por el archivo index.js
 module.exports = router;

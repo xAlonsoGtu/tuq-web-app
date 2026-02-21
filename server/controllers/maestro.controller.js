@@ -60,7 +60,7 @@ maestroCtrl.editar = async (req, res) => {
         
         // Obtenemos valores del body
         let maestro = new MaestroUpdate(req.body);
-
+        
         //Actualizamos el registro en la BD
         var rMaestro = await MaestroRepository.updateMaestro(maestro);
 
@@ -138,7 +138,7 @@ maestroCtrl.eliminar = async (req, res) => {
 maestroCtrl.obtener = async (req, res) => {
     try{
         // Validate request
-        if (!req.body) return res.status(400).send({ success: false, error: "Sin contenido en la petición" });
+        if (!req.params) return res.status(400).send({ success: false, error: "Sin contenido en la petición" });
         
         // Obtenemos valores
         var maestro_id = req.params.id;
@@ -150,7 +150,7 @@ maestroCtrl.obtener = async (req, res) => {
         if(rMaestro.success){
             return res.status(200).send({ success: true, payload: rMaestro.payload });
         }else{
-            return res.status(400).send({ success: false, error: "Maestro no eliminado" });
+            return res.status(400).send({ success: false, error: "Maestro no encontrado" });
         }
         
     }
@@ -165,7 +165,7 @@ maestroCtrl.obtener = async (req, res) => {
 maestroCtrl.buscar = async(req, res) => {
     try{
         
-        //Obtenemos valores del url para usarlos en la busqueda
+        //Obtenemos valores del url para usarlos en la busqueda        
         var palabra = req.query.palabra;
         var ordenBy = req.query.ordenBy;
         var orden = req.query.orden; 
@@ -184,5 +184,26 @@ maestroCtrl.buscar = async(req, res) => {
         return res.status(400).send({ success: false, error: e.message});
     }
 }
+
+//Función para probar que el middleware de cargar de archivos funcionó
+maestroCtrl.perfil = async (req, res) => {
+    try{
+        //Imprimimos body y file de la petición
+        console.log(req.body);     
+        console.log(req.file);
+
+        // Validate request
+        if (!req.body) return res.status(400).send({ success: false, error: "Sin contenido en la petición" });
+        
+        //Enviamos mensaje de éxito
+        res.send("File uploaded")
+    }
+    catch(e){
+        //Si ocurre un error lo mostramos en terminal y regresamos error 400
+        console.log(e);
+        return res.status(400).send({ success: false, error: e.message});
+    }
+}
+
 
 module.exports = maestroCtrl;

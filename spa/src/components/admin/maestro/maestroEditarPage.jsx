@@ -1,7 +1,8 @@
 //Librerias react y de terceros
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 //Componentes material
 import Link from '@mui/material/Link';
@@ -15,34 +16,88 @@ import Typography from '@mui/material/Typography';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import TextField from '@mui/material/TextField';
 import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
-import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import BusinessCenterOutlinedIcon from '@mui/icons-material/BusinessCenterOutlined';
 import Skeleton from '@mui/material/Skeleton';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
 //Liobrerias y componentes propios
 import { MaestroService } from './maestro.service';
 import { ConstantsRoutes } from '../../../utils/constants/constantsRoutes';
-import { MaestroForm } from '../../../models/maestro/maestroForm';
 import { ConstantsCatalogos } from '../../../utils/constants/constantsCatalogo';
+import { MaestroFormEditar } from '../../../models/maestro/maestroFormEditar';
 
 //Creamos componente
-function MaestroAgregarPage(){
+function MaestroEditarPage(){
     //Creamos variables de estado que usará el formulario
     const [status, setStatus] = useState('');
-    const [username, setUsername] = useState('usuario_ejemplo@tuq.com');
-    const [password, setPassword] = useState('qweqwe');
-    const [nombre, setNombre] = useState('usuario');
-    const [apellido_paterno, setApellidoPa] = useState('apellido p');
-    const [apellido_materno, setApellidoMa] = useState('apellido m');
+    const [username, setUsername] = useState('');
+    const [nombre, setNombre] = useState('');
+    const [apellido_paterno, setApellidoPa] = useState('');
+    const [apellido_materno, setApellidoMa] = useState('');
     const [escolaridad, setEscolaridad] = useState(0);
-    const [coordinador, setCoordinador] = useState('Coordinador 1');
+    const [coordinador, setCoordinador] = useState('');
     const [carrera, setCarrera] = useState(1);
     
     //Objeto de router-dom para redirigirnos a otras partes de la aplicación
     const navigate = useNavigate();
+    const { id } = useParams();
 
-     //Servicios/funciones del modulo auth 
+     //Servicios/funciones del modulo auth
     const maestroService = new MaestroService();
+
+
+    //HOOKS
+    //Hook de react para ejecutar función después de ejecutar el cambio de estado de algún elemento
+    useEffect(() => {
+        //Al modificarse el estado del id, ejecutamos la busqueda sólo si es un valor válido
+        if(id != null && id != 0)
+            getMaestro();
+    
+    }, [id]);
+
+    async function getMaestro() {
+        try {
+            //Cambia el estado a cargando
+            setStatus('cargando');
+
+            //Ejecutamos agregar enviandole el form y esperamos respuesta
+            var res = await maestroService.obtener(id);
+
+            //Si la respuesta es positiva
+            if(res.success){
+                //Si hay datos
+                if(res.payload){
+                    //Set datos del back en el formulario
+                    setDatosMaestro(res.payload);
+                }
+            }else{
+                //Si nos arrojo error lo mostramos
+                if(res.error) toast.error(res.error);
+                //De lo contrario arrojamos un error por defecto en el toast
+                else toast.error(ConstantsCatalogos.ERROR_DEFAULT);
+            }
+
+            //Modificamos status a ok
+            setStatus('ok');
+        } catch (err) {
+            //Si hay algun error lo monstramos
+            setStatus('nok');
+            toast.error(err)
+        }
+        finally {
+            setStatus('ok');
+        }
+    }
+
+    function setDatosMaestro(maestro){
+        setUsername(maestro.username);
+        setNombre(maestro.nombre);
+        setApellidoPa(maestro.apellido_paterno);
+        setApellidoMa(maestro.apellido_materno);
+        setEscolaridad(maestro.escolaridad);
+        setCoordinador(maestro.coordinador);
+        setCarrera(maestro.carrera);
+    }
 
     //Funcion asincrona del formulario que ejecuta el boton agregar
     async function handleSubmit(e) {
@@ -53,15 +108,15 @@ function MaestroAgregarPage(){
         setStatus('cargando');
         try {
             //Creamos objeto con los datos del form
-            var form = new MaestroForm(username, password, nombre, apellido_paterno, apellido_materno, escolaridad, coordinador, carrera);
+            var form = new MaestroFormEditar(id, nombre, apellido_paterno, apellido_materno, escolaridad, coordinador, carrera);
 
             //Ejecutamos agregar enviandole el form y esperamos respuesta
-            var res = await maestroService.agregar(form);
+            var res = await maestroService.editar(form);
 
             //Si la respuesta es positiva
             if(res.success){
                 //Mostramos mensaje success
-                toast.success("Maestro creado con éxito!");
+                toast.success("Maestro editado con éxito!");
 
                 //Navegamos a la siguiente página
                 navigate(ConstantsRoutes.SPA_MAESTRO_LISTAR);
@@ -98,8 +153,8 @@ function MaestroAgregarPage(){
                 </Link>
                 {/* Ruta actual */}
                 <Typography sx={{ color: 'text.primary', display: 'flex', alignItems: 'center' }}>
-                    <AddCircleOutlineOutlinedIcon sx={{ mr: 0.5 }} fontSize="inherit" />
-                    Agregar maestro
+                    <EditOutlinedIcon sx={{ mr: 0.5 }} fontSize="inherit" />
+                    Editar maestro
                 </Typography>
             </Breadcrumbs>
 
@@ -113,7 +168,7 @@ function MaestroAgregarPage(){
                             <Stack direction="row" spacing={2} sx={{ justifyContent: "space-between", alignItems: "center"}}>
                                 {/* Div para poner texto sin que se corte */}
                                 <Box sx={{ textOverflow: 'ellipsis', p: 2 }} className='box-form-head-title'>
-                                    <b>Nuevo maestro</b>
+                                    <b>Editar maestro</b>
                                 </Box>
                                 {/* Boton de guardar */}
                                 <Button 
@@ -155,13 +210,7 @@ function MaestroAgregarPage(){
                                                 label="Usuario" 
                                                 value={username} onChange={e => setUsername(e.target.value)} 
                                             />
-                                            <TextField fullWidth
-                                                variant="outlined" className='bg-white' size='small'
-                                                id="input-password" required 
-                                                label="Password" 
-                                                value={password} onChange={e => setPassword(e.target.value)} 
-                                                />
-                                            </Stack>
+                                        </Stack>
                                     </Stack>
                             </Stack>
                             {/* Subtitulo del formulario */}
@@ -229,6 +278,6 @@ function MaestroAgregarPage(){
         </Stack>
     );
 }
-export default MaestroAgregarPage;
+export default MaestroEditarPage;
 
 
