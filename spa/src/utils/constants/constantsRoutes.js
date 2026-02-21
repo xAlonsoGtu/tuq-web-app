@@ -7,6 +7,9 @@ export class ConstantsRoutes {
     static get SPA_ADMIN_HOME() { return "/admin/panel"; };
     static get SPA_MAESTRO_LISTAR() { return "/admin/maestro"; };
     static get SPA_MAESTRO_AGREGAR() { return "/admin/maestro/agregar"; };
+    static get SPA_ALUMNO_LISTAR() { return "/admin/alumno"; };
+    static get SPA_ALUMNO_AGREGAR() { return "/admin/alumno/agregar"; };
+    static get SPA_ALUMNO_BUSCAR() { return "/admin/alumno/buscar"; };
 
     /* API ROUTES */
     /* AUTH */
@@ -22,10 +25,7 @@ export class ConstantsRoutes {
 
     /* ALUMNOS */
 static get ALUMNO_AGREGAR() { return "/api/alumno/agregar"; };
-
-static get SPA_ALUMNO_LISTAR() { return "/admin/alumno"; };
-static get SPA_ALUMNO_AGREGAR() { return "/admin/alumno/agregar"; };
+static get ALUMNO_BUSCAR() { return "/api/alumno/buscar"; };
 
 
 }
-

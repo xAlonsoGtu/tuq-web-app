@@ -29,26 +29,20 @@ import { ConstantsCatalogos } from '../../../utils/constants/constantsCatalogo';
 function AlumnoAgregarPage() {
   //Creamos variables de estado que usará el formulario
   const [status, setStatus] = useState('');
-
   // Datos del usuario
   const [username, setUsername] = useState('alumno_ejemplo@tuq.com');
   const [password, setPassword] = useState('qweqwe');
-
   // Datos del alumno
   const [nombre, setNombre] = useState('alumno');
   const [apellido_paterno, setApellidoPa] = useState('apellido p');
   const [apellido_materno, setApellidoMa] = useState('apellido m');
-
   const [tipo_estudio, setTipoEstudio] = useState(0);   // si no lo usas, lo puedes quitar
   const [carrera, setCarrera] = useState(1);
   const [cuatrimestre, setCuatrimestre] = useState(1);
-
   //Objeto de router-dom para redirigirnos a otras partes de la aplicación
   const navigate = useNavigate();
-
   //Servicios/funciones del modulo alumnos
   const alumnoService = new AlumnoService();
-
   //Funcion asincrona del formulario que ejecuta el boton guardar
   async function handleSubmit(e) {
     //Previene comportamientos por default del form
@@ -57,20 +51,7 @@ function AlumnoAgregarPage() {
     //Cambia el estado a cargando
     setStatus('cargando');
     try {
-      /**
-       * OJO IMPORTANTE:
-       * En tu backend el INSERT pide usuario_id.
-       * En maestro no lo mandas porque el backend de maestro seguramente crea el usuario internamente.
-       *
-       * En alumno, según tu repo, SI requiere usuario_id.
-       * Entonces hay dos caminos:
-       *   A) Ya existe un usuario_id en sesión (por token) y el backend lo toma del token (ideal)
-       *   B) Lo mandas desde el front (si tu backend así lo pide)
-       *
-       * Por tus capturas del repo, parece que lo manda el front (alumno.usuario_id).
-       * Aquí lo saco de localStorage como ejemplo.
-       * AJUSTA al esquema real (donde guardan el id al iniciar sesión).
-       */
+      
       const usuario_id = Number(localStorage.getItem('usuario_id') || 0);
 
       //Creamos objeto con los datos del form
